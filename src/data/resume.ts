@@ -168,7 +168,7 @@ export const eras: Era[] = [
           "the casino industry.",
         bullets: [
           "Developed the product from the ground up in managed C#, C++, and unmanaged C++.",
-          "Implemented an Ext2/Ext3 file-system driver enabling Windows to read and hash Linux partitions.",
+          "Implemented an Ext2/Ext3 file-system driver enabling Windows to read and hash Linux files and directories on Linux partitions.",
           "Device-level signature methods for partitions, MBR, CD/DVD, and CF cards; worked directly with gaming manufacturers on proprietary hardware signature methodologies.",
           "Led the conversion from freemium tool to subscription service exceeding $500k annual revenue.",
         ],
@@ -324,7 +324,7 @@ export const projects: Project[] = [
       "Software-authentication tool for verifying casino gaming software — developed from the " +
       "ground up into the most widely used verification product in the industry.",
     highlights: [
-      "Wrote an Ext2/Ext3 file-system driver so Windows could read and hash Linux partitions — the kind of problem you solve when no library exists.",
+      "Wrote an Ext2/Ext3 file-system driver so Windows could read and hash Linux files and directories on Linux partitions — the kind of problem you solve when no library exists.",
       "Device-level signature methods for partitions, MBR, CD/DVD, and CF cards; collaborated directly with gaming manufacturers on signature methodologies for proprietary hardware.",
       "Led the business-model conversion from freemium to subscription, growing it past $500k in annual revenue.",
       "Managed C# and C++ alongside unmanaged C++; migrated the codebase from MFC to .NET.",
