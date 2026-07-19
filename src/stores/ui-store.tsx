@@ -12,7 +12,8 @@ export class UIStore {
   theme: ThemeChoice = "system";
   /** Set after mount so SSR markup never disagrees with the server. */
   hydrated = false;
-  expandedTimelineIds = new Set<string>();
+  /** Entries start expanded (readable like a paper resume); users collapse. */
+  collapsedTimelineIds = new Set<string>();
   openProjectId: string | null = null;
 
   constructor() {
@@ -39,15 +40,15 @@ export class UIStore {
   }
 
   toggleTimelineItem(id: string) {
-    if (this.expandedTimelineIds.has(id)) {
-      this.expandedTimelineIds.delete(id);
+    if (this.collapsedTimelineIds.has(id)) {
+      this.collapsedTimelineIds.delete(id);
     } else {
-      this.expandedTimelineIds.add(id);
+      this.collapsedTimelineIds.add(id);
     }
   }
 
   isTimelineItemExpanded(id: string) {
-    return this.expandedTimelineIds.has(id);
+    return !this.collapsedTimelineIds.has(id);
   }
 
   openProject(id: string) {

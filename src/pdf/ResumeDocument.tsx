@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     fontFamily: "Helvetica-Bold",
     letterSpacing: -0.3,
     lineHeight: 1,
+    textAlign: "center",
   },
   headline: {
     fontSize: 11,
@@ -35,12 +36,14 @@ const styles = StyleSheet.create({
     marginTop: 6,
     fontFamily: "Helvetica-Bold",
     lineHeight: 1,
+    textAlign: "center",
   },
   contactRow: {
     flexDirection: "row",
     flexWrap: "wrap",
+    justifyContent: "center",
     gap: 10,
-    marginTop: 7,
+    marginTop: 8,
     color: SECONDARY,
     fontSize: 8.5,
   },
@@ -232,7 +235,7 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
           <Text style={styles.sectionTitle}>Skills</Text>
           <View style={styles.skillsGrid}>
             {skillGroups.map((group) => (
-              <View key={group.label} style={styles.skillGroup}>
+              <View key={group.label} style={styles.skillGroup} wrap={false}>
                 <Text style={styles.skillLabel}>{group.label}</Text>
                 <Text style={styles.skillList}>{group.skills.join(" · ")}</Text>
               </View>

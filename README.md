@@ -18,9 +18,8 @@ profile, career timeline, featured projects, skills, education. Both the website
 PDF résumé render from it. To update the résumé: edit that file, done. The PDF at
 `/api/resume` is generated fresh on every request.
 
-> **TODO:** `upworkStats` in that file contains placeholder figures (marked
-> `isPlaceholder: true`). Replace them with real numbers from the Upwork profile and flip
-> the flag.
+> **TODO:** confirm the start years for the Family Hardware and MIND engagements
+> (marked with `TODO` comments in the data file).
 
 ## Development
 

@@ -147,8 +147,8 @@ export function ContactAndFooter() {
           <div {...stylex.props(styles.cardGlow)} />
           <h2 {...stylex.props(styles.title)}>Let&rsquo;s build something great.</h2>
           <p {...stylex.props(styles.text)}>
-            Available for senior full stack roles and consulting engagements. The résumé below is
-            generated on demand from the same data that powers this page.
+            Open to senior and staff full stack engineering roles. The résumé below is generated
+            on demand from the same data that powers this page.
           </p>
           <div {...stylex.props(styles.actions)}>
             <DownloadResumeButton />

@@ -62,37 +62,16 @@ export interface SkillGroup {
   skills: string[];
 }
 
-export interface Testimonial {
-  quote: string;
-  author: string;
-  context: string;
-}
-
-export interface UpworkStats {
-  /**
-   * PLACEHOLDER DATA — set to `false` once you replace the figures below
-   * with the real numbers from upwork.com/freelancers/chrisvanemmerik.
-   * While `true`, the site shows a subtle "sample figures" note.
-   */
-  isPlaceholder: boolean;
-  badge: string;
-  jobSuccess: string;
-  totalEarnings: string;
-  hoursWorked: string;
-  jobsCompleted: string;
-  testimonials: Testimonial[];
-}
-
 export const profile: Profile = {
   name: "Chris Van Emmerik",
   title: "Senior Full Stack Engineer",
   tagline: "Two decades shipping product — from in-circuit forensics to AI-native commerce.",
   summary:
     "I build complete products: information architecture, backend, UI, and the unglamorous " +
-    "details in between. B.S. in Computer Engineering, 13 years leading software engineering in " +
-    "the regulated gaming industry, and 8+ years as an independent full stack engineer shipping " +
-    "React/Next.js platforms for clients ranging from a Harvard Medical School teaching hospital " +
-    "to a 150,000-SKU retailer. I care about speed, craft, and software that feels obvious to use.",
+    "details in between. B.S. in Computer Engineering, 13 years building and leading product " +
+    "engineering in the regulated gaming industry, and 8+ years shipping React/Next.js platforms " +
+    "end to end — for a Harvard Medical School teaching hospital, a 150,000-SKU retailer, and " +
+    "others. I care about speed, craft, and software that feels obvious to use.",
   location: "Longmont, CO",
   email: "chris@greenlinkservices.com",
   phone: "720-818-0350",
@@ -111,13 +90,13 @@ export const eras: Era[] = [
   {
     id: "freelance",
     period: "2017 — Present",
-    role: "Senior Full Stack Engineer · Independent",
+    role: "Senior Full Stack Engineer",
     org: "Greenlink Services LLC",
     location: "Longmont, CO",
     blurb:
-      "Independent consultancy delivering end-to-end web platforms for private clients and via " +
-      "Upwork. Sole engineer on most engagements: architecture, implementation, deployment, and " +
-      "long-term ownership.",
+      "End-to-end ownership of production web platforms — architecture, implementation, " +
+      "deployment, and years of operation — as the sole engineer, working with clients directly " +
+      "and through Upwork.",
     items: [
       {
         id: "fh-web",
@@ -168,20 +147,6 @@ export const eras: Era[] = [
         tech: ["React", "TypeScript"],
         link: { label: "mindapps.org", href: "https://mindapps.org" },
         projectId: "mind",
-      },
-      {
-        id: "upwork",
-        years: "2017 — Present",
-        title: "Upwork — Senior Full Stack Engineer",
-        summary:
-          "Top-rated freelance practice delivering Next.js and React builds for clients across " +
-          "industries.",
-        bullets: [
-          "Long-running client relationships built on shipped, maintained software — not one-off gigs.",
-          "Own the whole lifecycle: scoping, architecture, implementation, deployment, support.",
-        ],
-        tech: ["React", "Next.js", "TypeScript", "Node.js"],
-        link: { label: "Upwork profile", href: "https://www.upwork.com/freelancers/chrisvanemmerik" },
       },
     ],
   },
@@ -455,30 +420,6 @@ export const skillGroups: SkillGroup[] = [
     skills: ["Embedded systems", "In-circuit emulation", "Receipt printers / scanners", "File-system internals", "Serial protocols", "Raspberry Pi"],
   },
 ];
-
-export const upworkStats: UpworkStats = {
-  // PLACEHOLDER — replace with real figures from your Upwork profile, then set false.
-  isPlaceholder: true,
-  badge: "Top Rated",
-  jobSuccess: "100%",
-  totalEarnings: "$300k+",
-  hoursWorked: "3,000+",
-  jobsCompleted: "25+",
-  testimonials: [
-    {
-      quote:
-        "PLACEHOLDER — paste a real client testimonial from your Upwork work history here.",
-      author: "Client name",
-      context: "Project name · Upwork",
-    },
-    {
-      quote:
-        "PLACEHOLDER — paste a second real client testimonial from your Upwork work history here.",
-      author: "Client name",
-      context: "Project name · Upwork",
-    },
-  ],
-};
 
 /** Education shown in the PDF resume. */
 export const education = {
