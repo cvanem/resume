@@ -40,22 +40,14 @@ const styles = StyleSheet.create({
     lineHeight: 1,
     textAlign: "center",
   },
-  locationRow: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 4,
-    marginTop: 8,
-    fontSize: 9,
-    color: SECONDARY,
-  },
   contactWrap: {
     flexDirection: "row",
     justifyContent: "center",
-    gap: 32,
+    gap: 16,
     marginTop: 9,
   },
   contactCol: {
+    width: 244,
     gap: 4,
   },
   contactEntry: {
@@ -65,6 +57,7 @@ const styles = StyleSheet.create({
     fontSize: 8.5,
   },
   contactLabel: {
+    width: 66,
     fontFamily: "Helvetica-Bold",
     fontSize: 8.5,
     color: TEXT,
@@ -74,6 +67,11 @@ const styles = StyleSheet.create({
     fontSize: 8.5,
     color: ACCENT,
     textDecoration: "none",
+    lineHeight: 1,
+  },
+  contactValuePlain: {
+    fontSize: 8.5,
+    color: SECONDARY,
     lineHeight: 1,
   },
   headerRule: {
@@ -229,18 +227,18 @@ const ICONS: Record<string, ReactNode> = {
       <Path
         d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
         fill="none"
-        stroke={SECONDARY}
+        stroke={ACCENT}
         strokeWidth={2}
         strokeLinejoin="round"
       />
-      <Circle cx={12} cy={10} r={3} fill="none" stroke={SECONDARY} strokeWidth={2} />
+      <Circle cx={12} cy={10} r={3} fill="none" stroke={ACCENT} strokeWidth={2} />
     </G>
   ),
   phone: (
     <Path
       d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
       fill="none"
-      stroke={SECONDARY}
+      stroke={ACCENT}
       strokeWidth={2}
       strokeLinejoin="round"
     />
@@ -295,8 +293,9 @@ function Icon({ name, size = 9 }: { name: keyof typeof ICONS; size?: number }) {
   );
 }
 
-/** Strip the scheme (and any trailing slash) so printed text shows a clean path. */
-const displayUrl = (url: string) => url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+/** Strip scheme, leading www., and any trailing slash so printed text shows a clean path. */
+const displayUrl = (url: string) =>
+  url.replace(/^https?:\/\//, "").replace(/^www\./, "").replace(/\/$/, "");
 
 function ContactEntry({
   icon,
@@ -307,38 +306,37 @@ function ContactEntry({
   icon: keyof typeof ICONS;
   label: string;
   value: string;
-  href: string;
+  href?: string;
 }) {
   return (
     <View style={styles.contactEntry}>
       <Icon name={icon} />
       <Text style={styles.contactLabel}>{label}</Text>
-      <Link src={href} style={styles.contactValue}>
-        {value}
-      </Link>
+      {href ? (
+        <Link src={href} style={styles.contactValue}>
+          {value}
+        </Link>
+      ) : (
+        <Text style={styles.contactValuePlain}>{value}</Text>
+      )}
     </View>
   );
 }
 
 function Contact() {
   return (
-    <>
-      <View style={styles.locationRow}>
-        <Icon name="pin" />
-        <Text>{profile.location}</Text>
+    <View style={styles.contactWrap}>
+      <View style={styles.contactCol}>
+        <ContactEntry icon="pin" label="Location" value={profile.location} />
+        <ContactEntry icon="mail" label="Email" value={profile.email} href={`mailto:${profile.email}`} />
+        <ContactEntry icon="phone" label="Phone" value={profile.phone} href={`tel:${profile.phone}`} />
       </View>
-      <View style={styles.contactWrap}>
-        <View style={styles.contactCol}>
-          <ContactEntry icon="globe" label="Live Resume" value={displayUrl(profile.website)} href={profile.website} />
-          <ContactEntry icon="mail" label="Email" value={profile.email} href={`mailto:${profile.email}`} />
-          <ContactEntry icon="phone" label="Phone" value={profile.phone} href={`tel:${profile.phone}`} />
-        </View>
-        <View style={styles.contactCol}>
-          <ContactEntry icon="upwork" label="Upwork Profile" value={displayUrl(profile.upwork)} href={profile.upwork} />
-          <ContactEntry icon="github" label="GitHub" value={displayUrl(profile.github)} href={profile.github} />
-        </View>
+      <View style={styles.contactCol}>
+        <ContactEntry icon="globe" label="Live Resume" value={displayUrl(profile.website)} href={profile.website} />
+        <ContactEntry icon="upwork" label="Upwork Profile" value={displayUrl(profile.upwork)} href={profile.upwork} />
+        <ContactEntry icon="github" label="GitHub" value={displayUrl(profile.github)} href={profile.github} />
       </View>
-    </>
+    </View>
   );
 }
 
