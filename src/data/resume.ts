@@ -130,9 +130,9 @@ export const eras: Era[] = [
           "Full commerce stack: Stripe + PayPal checkout, subscriptions, dynamic tax, multi-warehouse ShipEngine/FedEx live rating, in-store pickup, returns with prepaid labels.",
           "Faceted catalog search across 150,000+ SKUs with Algolia InstantSearch, surfacing live per-store inventory and pricing from MySQL.",
           "Static generation at scale — pre-generated category/product pages, virtualized product grids, AVIF/WebP image pipeline.",
-          "Customer accounts, order history and tracking, and authentication with Clerk.",
+          "Customer accounts, order history and tracking, and authentication.",
         ],
-        tech: ["Next.js", "React 19", "TypeScript", "Algolia", "Stripe", "PayPal", "MySQL", "Clerk", "Vercel"],
+        tech: ["Next.js", "React 19", "TypeScript", "Algolia", "Stripe", "PayPal", "MySQL", "Vercel"],
         link: { label: "familyhardware.com", href: "https://www.familyhardware.com" },
         projectId: "fh-web",
       },
@@ -311,9 +311,9 @@ export const projects: Project[] = [
       "Faceted catalog search across 150,000+ SKUs with Algolia InstantSearch, surfacing live per-store inventory and pricing from MySQL so results never misrepresent availability.",
       "Full commerce stack: Stripe Checkout + subscriptions + dynamic tax, PayPal, multi-warehouse ShipEngine/FedEx live rating with nearest-warehouse logic, in-store pickup, returns with prepaid labels, invoice PDF generation.",
       "Performance at catalog scale: pre-generated category/product pages, virtualized grids, AVIF/WebP image pipeline, tuned bundle splitting.",
-      "Customer accounts, order history and tracking, and Clerk-based authentication.",
+      "Customer accounts, order history and tracking, and authentication.",
     ],
-    tech: ["Next.js", "React 19", "TypeScript", "Algolia", "Stripe", "PayPal", "ShipEngine", "MySQL", "Clerk", "Vercel"],
+    tech: ["Next.js", "React 19", "TypeScript", "Algolia", "Stripe", "PayPal", "ShipEngine", "MySQL", "Vercel"],
     links: [{ label: "familyhardware.com", href: "https://www.familyhardware.com" }],
     metrics: [
       { value: "150k+", label: "SKUs" },
@@ -455,7 +455,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: "Commerce & Integrations",
-    skills: ["Stripe + Stripe Terminal", "PayPal", "Algolia", "ShipEngine / FedEx", "Clerk", "Twilio-class messaging", "Webhooks"],
+    skills: ["Stripe + Stripe Terminal", "PayPal", "Algolia", "ShipEngine / FedEx", "Twilio-class messaging", "Webhooks"],
   },
   {
     label: "Hardware & Low-level",
