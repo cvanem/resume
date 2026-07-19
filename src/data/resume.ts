@@ -69,12 +69,14 @@ export interface SkillGroup {
 export const profile: Profile = {
   name: "Chris Van Emmerik",
   title: "Senior Full Stack Engineer",
-  tagline: "Two decades shipping product — from in-circuit forensics to large-scale e-commerce.",
+  tagline: "Two decades shipping product — from in-circuit forensics to real-time, AI-forward web platforms.",
   summary:
     "I build complete products: information architecture, backend, UI, and the unglamorous " +
     "details in between. B.S. in Computer Engineering, 13 years building and leading product " +
-    "engineering in the regulated gaming industry, and 8+ years shipping React/Next.js platforms " +
-    "end to end. I care about speed, craft, and software that feels obvious to use.",
+    "engineering in regulated gaming, and 8+ years shipping React/Next.js platforms end to end — " +
+    "most recently real-time printing infrastructure in TypeScript and Rust. I build AI-forward " +
+    "and lean on AI-assisted tooling across my workflow, and I care about speed, craft, and " +
+    "software that feels obvious to use.",
   location: "Lead, SD",
   email: "chris@greenlinkservices.com",
   phone: "720-818-0350",
@@ -92,9 +94,31 @@ export const eras: Era[] = [
     employmentType: "Independent · Contract",
     blurb:
       "My own single-member consultancy. As the sole engineer, I take client engagements " +
-      "end to end — architecture, implementation, deployment, and years of ongoing operation — " +
-      "working directly with clients and through Upwork.",
+      "end to end — architecture, implementation, deployment, and years of ongoing operation. " +
+      "I integrate AI-assisted tooling throughout the workflow — from rapid prototyping to code " +
+      "review and testing — so more time goes to the architecture and UX decisions that actually " +
+      "matter, without trading away rigor.",
     items: [
+      {
+        id: "receiptkit",
+        years: "2024 — Present", // TODO(chris): confirm start year
+        title: "ReceiptKit — Cloud-to-Thermal Printing Platform",
+        summary:
+          "Co-founder and sole engineer of receiptkit.io — “receipt printing in 3 lines of code.” " +
+          "Design a receipt in a visual editor, then print to physical Star Micronics thermal " +
+          "printers from any web or cloud app via a simple JSON API. I architected and built the " +
+          "entire solution.",
+        bullets: [
+          "The problem: browsers and cloud servers can't reach thermal printers, which speak proprietary binary protocols over raw TCP/USB on the local network. Built the missing edge “bridge” that renders and prints in ~40ms locally, ~97ms over the cloud.",
+          "Implemented the Star Micronics binary protocol from scratch in Rust — Star Graphics Mode raster encoding, RGBA-to-1-bit Floyd–Steinberg dithering, and cash-drawer control.",
+          "Cut render latency ~50x (600ms to 12ms) with a custom ttf-parser text-to-path pre-processor that eliminates the rasterizer's system-font resolution — verified byte-identical output before shipping.",
+          "Real-time status, presence, and job dispatch over AWS IoT MQTT with per-org-scoped policies; deliberate offline-first failover to a LAN HTTP bridge so the register keeps printing when the internet drops.",
+          "AI template generation with Claude, including vision — photograph a paper receipt and get back an editable template, SSE-streamed.",
+        ],
+        tech: ["Next.js 16", "React 19", "TypeScript", "Rust", "Tauri", "AWS IoT MQTT", "Supabase", "Stripe", "Anthropic API"],
+        link: { label: "receiptkit.io", href: "https://receiptkit.io" },
+        projectId: "receiptkit",
+      },
       {
         id: "fh-web",
         years: "2020 — Present", // TODO(chris): confirm start year
@@ -246,6 +270,35 @@ export const eras: Era[] = [
 
 export const projects: Project[] = [
   {
+    id: "receiptkit",
+    name: "ReceiptKit",
+    client: "Co-founder / Software Architect · receiptkit.io",
+    years: "2024 — Present",
+    kicker: "Real-time printing infrastructure",
+    description:
+      "Receipt printing in 3 lines of code. A cloud-to-thermal-printer platform: design a receipt " +
+      "in a visual editor, then print to physical Star Micronics printers from any web or cloud " +
+      "app via a JSON API. I co-founded it and architected and built the entire solution — web " +
+      "app, SDK, real-time transport, desktop and Raspberry Pi bridges, and the Rust rendering " +
+      "engine.",
+    highlights: [
+      "The core problem: browsers and cloud servers can't talk to thermal printers, which speak proprietary binary protocols over raw TCP/USB on the local network. ReceiptKit is the bridge — a visual template editor and a session.print({ data }) SDK on top, hiding all the rendering, binary-protocol, real-time-transport, and printer-status complexity underneath.",
+      "Cut render latency ~50x (600ms → 12ms median). Profiling showed the rasterizer spent ~85% of its time loading ~360 system fonts and resolving text, so I wrote a standalone Rust text-to-path pre-processor (ttf-parser only, zero rasterizer dependency) that outlines every glyph — kerning, baselines, text-anchor — letting the rasterizer skip font resolution entirely. Verified byte-identical output before shipping, so a pure speed win carried zero quality risk.",
+      "Implemented the Star Micronics binary protocol from scratch in Rust: Star Graphics Mode raster headers with little-endian packing, RGBA→luma→1-bit conversion via hard-threshold or Floyd–Steinberg dithering, MSB-first bit packing, and cash-drawer kick commands.",
+      "Solved a subtle systems problem: Star printers share one TCP port (9100) for both print data and status queries, so polling from multiple dashboard tabs delayed print jobs by 2–3s. Layered fixes — a status cache with TTL, post-print suppression to keep the port clear during the printer's mechanical phase, detached async tasks, and parallelized queries — brought latency back under control.",
+      "Real-time transport over AWS IoT MQTT with a custom Lambda authorizer enforcing per-org topic policies and retained Last-Will messages for bridge presence. Chose MQTT-primary with mDNS-discovered LAN-HTTP failover — a deliberate “fallback-first” design so a store keeps printing and opening its cash drawer when the internet drops.",
+      "Kept one canonical TypeScript SVG generator byte-identical across three runtimes — the browser, an embedded QuickJS engine inside the Rust bridge, and a native Rust reimplementation (~10x faster) — trading a custom esbuild pipeline for a single source of truth instead of divergent copies.",
+      "AI template generation with Claude, including a vision mode: photograph a paper receipt and get back an editable template, SSE-streamed, with JSON repair, retry/backoff, and an automatic font-audit pass.",
+    ],
+    tech: ["Next.js 16", "React 19", "TypeScript", "Rust", "Tauri 2", "AWS IoT MQTT", "Supabase", "Stripe", "Anthropic API", "Vercel"],
+    links: [{ label: "receiptkit.io", href: "https://receiptkit.io" }],
+    metrics: [
+      { value: "~50x", label: "faster render (600→12ms)" },
+      { value: "<100ms", label: "cloud-to-print" },
+      { value: "TS + Rust", label: "monorepo, solo-built" },
+    ],
+  },
+  {
     id: "fh-web",
     name: "Family Hardware",
     client: "E-commerce platform · familyhardware.com",
@@ -386,11 +439,15 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: "Backend & Data",
-    skills: ["Node.js", "C# / .NET", "C / C++", "MySQL", "PostgreSQL", "SQL Server", "DynamoDB", "REST APIs", "Serverless"],
+    skills: ["Node.js", "Rust", "C# / .NET", "C / C++", "PostgreSQL / Supabase", "MySQL", "SQL Server", "REST APIs", "Serverless"],
   },
   {
-    label: "AI Integration",
-    skills: ["Anthropic API (Claude)", "LLM-assisted internal tooling"],
+    label: "Real-time & Systems",
+    skills: ["AWS IoT / MQTT", "WebSockets", "Offline-first / failover", "Tauri (desktop)", "Binary protocols", "Presence / LWT"],
+  },
+  {
+    label: "AI Engineering",
+    skills: ["Anthropic API (Claude)", "Claude vision / multimodal", "SSE streaming", "AI-assisted development workflow"],
   },
   {
     label: "Cloud & Infra",
