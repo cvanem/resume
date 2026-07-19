@@ -9,6 +9,7 @@ import { Document, Page, Text, View, Link, Svg, G, Path, Circle, StyleSheet } fr
 import { profile, eras, education, training, skillGroups } from "@/data/resume";
 
 const ACCENT = "#4c58c4";
+const LINK = "#1155cc"; // standard web-link blue for clickable values
 const TEXT = "#16181d";
 const SECONDARY = "#4b4f57";
 const TERTIARY = "#7a7f88";
@@ -17,13 +18,13 @@ const RAIL = "#c8ccec"; // light accent tint for the era rail
 
 const styles = StyleSheet.create({
   page: {
-    paddingTop: 40,
-    paddingBottom: 44,
-    paddingHorizontal: 48,
+    paddingTop: 36,
+    paddingBottom: 38,
+    paddingHorizontal: 44,
     fontFamily: "Helvetica",
-    fontSize: 9.5,
+    fontSize: 9,
     color: TEXT,
-    lineHeight: 1.45,
+    lineHeight: 1.4,
   },
   name: {
     fontSize: 22,
@@ -40,13 +41,17 @@ const styles = StyleSheet.create({
     lineHeight: 1,
     textAlign: "center",
   },
-  contactWrap: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    rowGap: 7,
-    columnGap: 15,
+  contactBlock: {
     marginTop: 10,
+  },
+  contactRow: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 20,
+  },
+  contactRow2: {
+    marginTop: 6,
   },
   contactEntry: {
     flexDirection: "row",
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
   },
   contactValue: {
     fontSize: 8,
-    color: ACCENT,
+    color: LINK,
     textDecoration: "none",
     lineHeight: 1,
   },
@@ -74,14 +79,14 @@ const styles = StyleSheet.create({
   headerRule: {
     borderBottomWidth: 1,
     borderBottomColor: BORDER,
-    marginTop: 11,
+    marginTop: 9,
   },
   summary: {
-    marginTop: 11,
+    marginTop: 9,
     color: SECONDARY,
   },
   section: {
-    marginTop: 15,
+    marginTop: 12,
   },
   sectionTitle: {
     fontSize: 10.5,
@@ -92,10 +97,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: BORDER,
     paddingBottom: 4,
-    marginBottom: 10,
+    marginBottom: 8,
   },
   era: {
-    marginBottom: 13,
+    marginBottom: 11,
   },
   eraHeader: {
     flexDirection: "row",
@@ -118,10 +123,10 @@ const styles = StyleSheet.create({
     color: TERTIARY,
   },
   eraOrg: {
-    fontSize: 9.5,
+    fontSize: 9,
     color: SECONDARY,
     marginTop: 1,
-    marginBottom: 7,
+    marginBottom: 6,
   },
   eraItems: {
     marginLeft: 3,
@@ -130,7 +135,7 @@ const styles = StyleSheet.create({
     borderLeftColor: RAIL,
   },
   item: {
-    marginBottom: 9,
+    marginBottom: 7,
   },
   itemTitleRow: {
     flexDirection: "row",
@@ -154,7 +159,7 @@ const styles = StyleSheet.create({
   },
   bulletRow: {
     flexDirection: "row",
-    marginTop: 2.5,
+    marginTop: 2,
     paddingLeft: 1,
   },
   bulletGlyph: {
@@ -172,7 +177,7 @@ const styles = StyleSheet.create({
   },
   skillGroup: {
     width: "50%",
-    marginBottom: 7,
+    marginBottom: 6,
     paddingRight: 12,
   },
   skillLabel: {
@@ -195,9 +200,9 @@ const styles = StyleSheet.create({
   },
   footer: {
     position: "absolute",
-    bottom: 22,
-    left: 48,
-    right: 48,
+    bottom: 18,
+    left: 44,
+    right: 44,
     flexDirection: "row",
     justifyContent: "space-between",
     fontSize: 7.5,
@@ -322,13 +327,17 @@ function ContactEntry({
 
 function Contact() {
   return (
-    <View style={styles.contactWrap}>
-      <ContactEntry icon="pin" label="Location" value={profile.location} />
-      <ContactEntry icon="mail" label="Email" value={profile.email} href={`mailto:${profile.email}`} />
-      <ContactEntry icon="phone" label="Phone" value={profile.phone} href={`tel:${profile.phone}`} />
-      <ContactEntry icon="globe" label="Live Resume" value={displayUrl(profile.website)} href={profile.website} />
-      <ContactEntry icon="upwork" label="Upwork" value={displayUrl(profile.upwork)} href={profile.upwork} />
-      <ContactEntry icon="github" label="GitHub" value={displayUrl(profile.github)} href={profile.github} />
+    <View style={styles.contactBlock}>
+      <View style={styles.contactRow}>
+        <ContactEntry icon="pin" label="Location" value={profile.location} />
+        <ContactEntry icon="mail" label="Email" value={profile.email} href={`mailto:${profile.email}`} />
+        <ContactEntry icon="phone" label="Phone" value={profile.phone} href={`tel:${profile.phone}`} />
+      </View>
+      <View style={[styles.contactRow, styles.contactRow2]}>
+        <ContactEntry icon="globe" label="Live Resume" value={displayUrl(profile.website)} href={profile.website} />
+        <ContactEntry icon="upwork" label="Upwork" value={displayUrl(profile.upwork)} href={profile.upwork} />
+        <ContactEntry icon="github" label="GitHub" value={displayUrl(profile.github)} href={profile.github} />
+      </View>
     </View>
   );
 }
