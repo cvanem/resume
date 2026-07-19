@@ -82,13 +82,6 @@ export const profile: Profile = {
   upwork: "https://www.upwork.com/freelancers/chrisvanemmerik",
 };
 
-export const heroStats: Stat[] = [
-  { value: "22+", label: "years engineering" },
-  { value: "150k+", label: "SKUs powered in production" },
-  { value: "$1.5M+", label: "annual revenue from products built" },
-  { value: "6", label: "US jurisdictions running my software" },
-];
-
 export const eras: Era[] = [
   {
     id: "freelance",

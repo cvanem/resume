@@ -2,7 +2,7 @@
 
 import * as stylex from "@stylexjs/stylex";
 import { colors, fonts } from "@/theme/tokens.stylex";
-import { profile, heroStats } from "@/data/resume";
+import { profile } from "@/data/resume";
 import { DownloadResumeButton } from "./DownloadResumeButton";
 
 const fadeUp = stylex.keyframes({
@@ -99,7 +99,6 @@ const styles = stylex.create({
     flexWrap: "wrap",
     alignItems: "center",
     gap: 12,
-    marginBottom: 56,
   },
   secondaryBtn: {
     display: "inline-flex",
@@ -119,35 +118,6 @@ const styles = stylex.create({
     backgroundColor: { default: "transparent", ":hover": colors.chipBg },
     transitionProperty: "border-color, background-color",
     transitionDuration: "0.15s",
-  },
-  stats: {
-    display: "grid",
-    gridTemplateColumns: { default: "repeat(2, 1fr)", "@media (min-width: 768px)": "repeat(4, 1fr)" },
-    gap: 1,
-    borderRadius: 12,
-    overflow: "hidden",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: colors.border,
-    backgroundColor: colors.border,
-  },
-  stat: {
-    backgroundColor: colors.surface,
-    paddingBlock: 20,
-    paddingInline: 20,
-  },
-  statValue: {
-    fontFamily: fonts.mono,
-    fontSize: { default: 22, "@media (min-width: 768px)": 26 },
-    fontWeight: 600,
-    letterSpacing: "-0.02em",
-    color: colors.text,
-    marginBottom: 4,
-  },
-  statLabel: {
-    fontSize: 13,
-    color: colors.textTertiary,
-    lineHeight: 1.4,
   },
 });
 
@@ -174,14 +144,6 @@ export function Hero() {
               <path d="M12 5v14m0 0 5-5m-5 5-5-5" />
             </svg>
           </a>
-        </div>
-        <div {...stylex.props(styles.stats, styles.animated(400))}>
-          {heroStats.map((stat) => (
-            <div key={stat.label} {...stylex.props(styles.stat)}>
-              <div {...stylex.props(styles.statValue)}>{stat.value}</div>
-              <div {...stylex.props(styles.statLabel)}>{stat.label}</div>
-            </div>
-          ))}
         </div>
       </div>
     </div>
