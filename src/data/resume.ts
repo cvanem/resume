@@ -31,6 +31,7 @@ export interface TimelineItem {
   bullets: string[];
   tech?: string[];
   link?: { label: string; href: string };
+  note?: string; // non-clickable label, e.g. for private/internal tools
   projectId?: string; // links to a featured project card
 }
 
@@ -54,6 +55,7 @@ export interface Project {
   highlights: string[];
   tech: string[];
   links?: { label: string; href: string }[];
+  note?: string; // non-clickable label, e.g. for private/internal tools
   metrics?: Stat[];
 }
 
@@ -129,7 +131,7 @@ export const eras: Era[] = [
           "AI-assisted operations: Claude-powered inventory analysis and a cron-driven daily business briefing.",
         ],
         tech: ["Next.js", "TypeScript", "MySQL", "DynamoDB", "Stripe Terminal", "AWS IoT", "Algolia", "Vercel"],
-        link: { label: "admin.familyhardware.com (private)", href: "https://admin.familyhardware.com" },
+        note: "Private / internal tool",
         projectId: "fh-admin",
       },
       {
@@ -231,19 +233,6 @@ export const eras: Era[] = [
         ],
         tech: ["C#", "WPF", "Embedded"],
       },
-      {
-        id: "scale-mobile",
-        years: "2011 — 2017",
-        title: "GLI Scale & GLI Mobile",
-        summary:
-          "Embedded load-testing platform for casino systems, and GLI's first cross-platform " +
-          "mobile app.",
-        bullets: [
-          "GLI Scale: Raspberry Pi devices load-testing casino systems over serial, driven from a web MVC interface; led the restructure that added QCOM protocol support.",
-          "GLI Mobile (2011): searchable certification database on Android, iOS, and Blackberry, backed by a .NET web API.",
-        ],
-        tech: ["Raspberry Pi", "C#", ".NET", "Ruby"],
-      },
     ],
   },
   {
@@ -300,7 +289,7 @@ export const projects: Project[] = [
       "AI-assisted operations: Claude-powered inventory analysis and a cron-driven daily business briefing surfacing metrics that matter.",
     ],
     tech: ["Next.js", "TypeScript", "MySQL", "DynamoDB", "Stripe Terminal", "AWS IoT MQTT", "Algolia", "ShipEngine", "S3", "Vercel"],
-    links: [{ label: "admin.familyhardware.com (private)", href: "https://admin.familyhardware.com" }],
+    note: "Private / internal tool",
     metrics: [
       { value: "~50", label: "feature modules" },
       { value: "~86", label: "API endpoints" },

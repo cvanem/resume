@@ -188,6 +188,14 @@ const styles = stylex.create({
     color: { default: colors.accentText, ":hover": colors.accent },
     textDecoration: "none",
   },
+  dialogNote: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 6,
+    fontSize: 14,
+    fontWeight: 500,
+    color: colors.textTertiary,
+  },
 });
 
 const ProjectDialog = observer(function ProjectDialog() {
@@ -249,9 +257,9 @@ const ProjectDialog = observer(function ProjectDialog() {
               <Chip key={tech} label={tech} />
             ))}
           </div>
-          {project.links?.length ? (
+          {project.links?.length || project.note ? (
             <div {...stylex.props(styles.dialogLinks)}>
-              {project.links.map((link) => (
+              {project.links?.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
@@ -265,6 +273,15 @@ const ProjectDialog = observer(function ProjectDialog() {
                   </svg>
                 </a>
               ))}
+              {project.note ? (
+                <span {...stylex.props(styles.dialogNote)}>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                    <rect x="5" y="11" width="14" height="10" rx="2" />
+                    <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                  </svg>
+                  {project.note}
+                </span>
+              ) : null}
             </div>
           ) : null}
         </div>

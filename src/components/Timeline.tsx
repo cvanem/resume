@@ -200,6 +200,15 @@ const styles = stylex.create({
     color: { default: colors.accentText, ":hover": colors.accent },
     textDecoration: "none",
   },
+  itemNote: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: 6,
+    marginTop: 14,
+    fontSize: 13,
+    fontWeight: 500,
+    color: colors.textTertiary,
+  },
 });
 
 const TimelineEntry = observer(function TimelineEntry({ item }: { item: TimelineItem }) {
@@ -262,6 +271,15 @@ const TimelineEntry = observer(function TimelineEntry({ item }: { item: Timeline
                   <path d="M7 17 17 7M9 7h8v8" />
                 </svg>
               </a>
+            ) : null}
+            {item.note ? (
+              <span {...stylex.props(styles.itemNote)}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
+                  <rect x="5" y="11" width="14" height="10" rx="2" />
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                </svg>
+                {item.note}
+              </span>
             ) : null}
           </div>
         </div>
