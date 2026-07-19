@@ -16,7 +16,7 @@ export default function Home() {
           id="experience"
           kicker="Experience"
           title="Twenty-two years, two chapters"
-          lede="Thirteen years building and leading product engineering in regulated gaming, then eight-plus years shipping full stack platforms end to end as an independent engineer. Every entry is expanded — collapse what you don't need."
+          lede="Thirteen years building and leading product engineering in regulated gaming, then eight-plus years shipping full stack platforms end to end as an independent engineer."
         >
           <Timeline />
         </Section>
