@@ -308,7 +308,7 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
       title={`${profile.name} — Resume`}
       author={profile.name}
       subject={profile.title}
-      creator="cvanem/portfolio — generated on demand"
+      creator="cvanem/resume — generated on demand"
     >
       <Page size="LETTER" style={styles.page}>
         {/* Header */}

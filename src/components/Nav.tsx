@@ -79,7 +79,7 @@ export function Nav() {
     <header {...stylex.props(styles.header)}>
       <div {...stylex.props(styles.inner)}>
         <a href="#top" {...stylex.props(styles.brand)}>
-          cvanem<span {...stylex.props(styles.brandAccent)}>.dev</span>
+          greenlinkservices<span {...stylex.props(styles.brandAccent)}>.com</span>
         </a>
         <nav {...stylex.props(styles.links)} aria-label="Sections">
           {LINKS.map((link) => (

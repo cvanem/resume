@@ -181,7 +181,7 @@ export function ContactAndFooter() {
           <span {...stylex.props(styles.footerMono)}>
             Built with Next.js · MobX · StyleX ·{" "}
             <a
-              href="https://github.com/cvanem/portfolio"
+              href="https://github.com/cvanem/resume"
               target="_blank"
               rel="noopener noreferrer"
               {...stylex.props(styles.footerLink)}
