@@ -72,10 +72,9 @@ export const profile: Profile = {
   tagline: "Two decades shipping product — from in-circuit forensics to real-time, AI-forward web platforms.",
   summary:
     "I build complete products: information architecture, backend, UI, and the unglamorous " +
-    "details in between. B.S. in Computer Engineering, 13 years building and leading product " +
-    "engineering in regulated gaming, and 8+ years shipping React/Next.js platforms end to end. " +
-    "I build AI-forward and lean on AI-assisted tooling across my workflow, and I care about " +
-    "speed, craft, and software that feels obvious to use.",
+    "details in between — backed by a B.S. in Computer Engineering. I build AI-forward and lean " +
+    "on AI-assisted tooling across my workflow, and I care about speed, craft, and software that " +
+    "feels obvious to use.",
   location: "Lead, SD",
   email: "chris@greenlinkservices.com",
   phone: "720-818-0350",
