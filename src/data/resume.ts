@@ -101,7 +101,7 @@ export const eras: Era[] = [
     items: [
       {
         id: "receiptkit",
-        years: "2024 — Present", // TODO(chris): confirm start year
+        years: "2025 — Present",
         title: "ReceiptKit — Cloud-to-Thermal Printing Platform",
         summary:
           "Co-founder and sole engineer of receiptkit.io — “receipt printing in 3 lines of code.” " +
@@ -273,7 +273,7 @@ export const projects: Project[] = [
     id: "receiptkit",
     name: "ReceiptKit",
     client: "Co-founder / Software Architect · receiptkit.io",
-    years: "2024 — Present",
+    years: "2025 — Present",
     kicker: "Real-time printing infrastructure",
     description:
       "Receipt printing in 3 lines of code. A cloud-to-thermal-printer platform: design a receipt " +
