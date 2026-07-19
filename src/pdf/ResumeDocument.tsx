@@ -40,25 +40,38 @@ const styles = StyleSheet.create({
     lineHeight: 1,
     textAlign: "center",
   },
-  contactRow: {
+  locationRow: {
     flexDirection: "row",
-    flexWrap: "wrap",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 9,
-    fontSize: 8.5,
+    gap: 4,
+    marginTop: 8,
+    fontSize: 9,
+    color: SECONDARY,
   },
-  contactItem: {
+  contactWrap: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 32,
+    marginTop: 9,
+  },
+  contactCol: {
+    gap: 4,
+  },
+  contactEntry: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 3,
-    marginHorizontal: 6,
+    gap: 5,
+    fontSize: 8.5,
   },
-  contactText: {
-    color: SECONDARY,
+  contactLabel: {
+    fontFamily: "Helvetica-Bold",
+    fontSize: 8.5,
+    color: TEXT,
     lineHeight: 1,
   },
-  contactLink: {
+  contactValue: {
+    fontSize: 8.5,
     color: ACCENT,
     textDecoration: "none",
     lineHeight: 1,
@@ -198,6 +211,19 @@ const styles = StyleSheet.create({
 });
 
 const ICONS: Record<string, ReactNode> = {
+  globe: (
+    <G>
+      <Circle cx={12} cy={12} r={10} fill="none" stroke={ACCENT} strokeWidth={2} />
+      <Path d="M2 12h20" fill="none" stroke={ACCENT} strokeWidth={2} strokeLinejoin="round" />
+      <Path
+        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+        fill="none"
+        stroke={ACCENT}
+        strokeWidth={2}
+        strokeLinejoin="round"
+      />
+    </G>
+  ),
   pin: (
     <G>
       <Path
@@ -269,36 +295,50 @@ function Icon({ name, size = 9 }: { name: keyof typeof ICONS; size?: number }) {
   );
 }
 
+/** Strip the scheme (and any trailing slash) so printed text shows a clean path. */
+const displayUrl = (url: string) => url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+
+function ContactEntry({
+  icon,
+  label,
+  value,
+  href,
+}: {
+  icon: keyof typeof ICONS;
+  label: string;
+  value: string;
+  href: string;
+}) {
+  return (
+    <View style={styles.contactEntry}>
+      <Icon name={icon} />
+      <Text style={styles.contactLabel}>{label}</Text>
+      <Link src={href} style={styles.contactValue}>
+        {value}
+      </Link>
+    </View>
+  );
+}
+
 function Contact() {
   return (
-    <View style={styles.contactRow}>
-      <View style={styles.contactItem}>
+    <>
+      <View style={styles.locationRow}>
         <Icon name="pin" />
-        <Text style={styles.contactText}>{profile.location}</Text>
+        <Text>{profile.location}</Text>
       </View>
-      <View style={styles.contactItem}>
-        <Icon name="phone" />
-        <Text style={styles.contactText}>{profile.phone}</Text>
+      <View style={styles.contactWrap}>
+        <View style={styles.contactCol}>
+          <ContactEntry icon="globe" label="Live Resume" value={displayUrl(profile.website)} href={profile.website} />
+          <ContactEntry icon="mail" label="Email" value={profile.email} href={`mailto:${profile.email}`} />
+          <ContactEntry icon="phone" label="Phone" value={profile.phone} href={`tel:${profile.phone}`} />
+        </View>
+        <View style={styles.contactCol}>
+          <ContactEntry icon="upwork" label="Upwork Profile" value={displayUrl(profile.upwork)} href={profile.upwork} />
+          <ContactEntry icon="github" label="GitHub" value={displayUrl(profile.github)} href={profile.github} />
+        </View>
       </View>
-      <View style={styles.contactItem}>
-        <Icon name="mail" />
-        <Link src={`mailto:${profile.email}`} style={styles.contactLink}>
-          {profile.email}
-        </Link>
-      </View>
-      <View style={styles.contactItem}>
-        <Icon name="github" />
-        <Link src={profile.github} style={styles.contactLink}>
-          github.com/cvanem
-        </Link>
-      </View>
-      <View style={styles.contactItem}>
-        <Icon name="upwork" />
-        <Link src={profile.upwork} style={styles.contactLink}>
-          Upwork Profile
-        </Link>
-      </View>
-    </View>
+    </>
   );
 }
 

@@ -15,6 +15,7 @@ export interface Profile {
   phone: string;
   github: string;
   upwork: string;
+  website: string;
   linkedin?: string;
 }
 
@@ -85,6 +86,7 @@ export const profile: Profile = {
   phone: "720-818-0350",
   github: "https://github.com/cvanem",
   upwork: "https://www.upwork.com/freelancers/chrisvanemmerik",
+  website: "https://www.greenlinkservices.com",
 };
 
 export const eras: Era[] = [
