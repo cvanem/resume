@@ -41,7 +41,7 @@ const styles = stylex.create({
     marginInline: "auto",
     paddingInline: { default: 24, "@media (min-width: 768px)": 32 },
     paddingTop: { default: 72, "@media (min-width: 768px)": 110 },
-    paddingBottom: { default: 56, "@media (min-width: 768px)": 80 },
+    paddingBottom: { default: 8, "@media (min-width: 768px)": 12 },
   },
   animated: (delay: number) => ({
     animationName: fadeUp,
