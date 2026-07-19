@@ -41,6 +41,8 @@ export interface Era {
   role: string;
   org: string;
   location: string;
+  /** Short employment-type badge, e.g. "Independent · Contract" or "Full-time". */
+  employmentType?: string;
   blurb: string;
   items: TimelineItem[];
 }
@@ -91,13 +93,14 @@ export const eras: Era[] = [
   {
     id: "freelance",
     period: "2017 — Present",
-    role: "Senior Full Stack Engineer",
-    org: "Greenlink Services LLC",
+    role: "Founder & Principal Engineer",
+    org: "Greenlink Services LLC · Independent software consultancy",
     location: "Longmont, CO",
+    employmentType: "Independent · Contract",
     blurb:
-      "End-to-end ownership of production web platforms — architecture, implementation, " +
-      "deployment, and years of operation — as the sole engineer, working with clients directly " +
-      "and through Upwork.",
+      "My own single-member consultancy. As the sole engineer, I take client engagements " +
+      "end to end — architecture, implementation, deployment, and years of ongoing operation — " +
+      "working directly with clients and through Upwork.",
     items: [
       {
         id: "fh-web",
@@ -157,6 +160,7 @@ export const eras: Era[] = [
     role: "Manager, Software Engineering",
     org: "Gaming Laboratories International",
     location: "Wheat Ridge, CO",
+    employmentType: "Full-time",
     blurb:
       "Thirteen years building and leading product engineering at the world's largest gaming " +
       "test lab — shipping verification tools, SaaS compliance platforms, and running a forensics " +

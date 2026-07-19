@@ -46,12 +46,39 @@ const styles = stylex.create({
   eraHeader: {
     marginBottom: 8,
   },
+  periodRow: {
+    display: "flex",
+    alignItems: "center",
+    flexWrap: "wrap",
+    gap: 10,
+    marginBottom: 6,
+  },
   period: {
     fontFamily: fonts.mono,
     fontSize: 13,
     color: colors.accentText,
     letterSpacing: "0.04em",
-    marginBottom: 6,
+  },
+  typeBadge: {
+    fontFamily: fonts.mono,
+    fontSize: 11,
+    fontWeight: 500,
+    letterSpacing: "0.04em",
+    textTransform: "uppercase",
+    lineHeight: 1,
+    paddingBlock: 5,
+    paddingInline: 9,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: colors.border,
+    backgroundColor: colors.chipBg,
+    color: colors.textSecondary,
+  },
+  typeBadgeIndependent: {
+    borderColor: "transparent",
+    backgroundColor: colors.accentSoft,
+    color: colors.accentText,
   },
   role: {
     fontSize: { default: 20, "@media (min-width: 768px)": 24 },
@@ -295,7 +322,19 @@ function EraBlock({ era, isLast }: { era: Era; isLast: boolean }) {
       <div {...stylex.props(styles.node)} />
       <Reveal>
         <div {...stylex.props(styles.eraHeader)}>
-          <p {...stylex.props(styles.period)}>{era.period}</p>
+          <div {...stylex.props(styles.periodRow)}>
+            <p {...stylex.props(styles.period)}>{era.period}</p>
+            {era.employmentType ? (
+              <span
+                {...stylex.props(
+                  styles.typeBadge,
+                  era.employmentType.startsWith("Independent") && styles.typeBadgeIndependent,
+                )}
+              >
+                {era.employmentType}
+              </span>
+            ) : null}
+          </div>
           <h3 {...stylex.props(styles.role)}>{era.role}</h3>
           <p {...stylex.props(styles.org)}>
             {era.org} · {era.location}

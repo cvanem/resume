@@ -81,6 +81,11 @@ const styles = StyleSheet.create({
     fontSize: 8.5,
     color: TERTIARY,
   },
+  eraType: {
+    fontSize: 9,
+    fontFamily: "Helvetica",
+    color: ACCENT,
+  },
   eraOrg: {
     fontSize: 9.5,
     color: SECONDARY,
@@ -205,7 +210,12 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
             .map((era) => (
               <View key={era.id} style={{ marginBottom: 10 }}>
                 <View style={styles.eraHeader}>
-                  <Text style={styles.eraRole}>{era.role}</Text>
+                  <Text style={styles.eraRole}>
+                    {era.role}
+                    {era.employmentType ? (
+                      <Text style={styles.eraType}> · {era.employmentType}</Text>
+                    ) : null}
+                  </Text>
                   <Text style={styles.eraMeta}>{era.period}</Text>
                 </View>
                 <Text style={styles.eraOrg}>
