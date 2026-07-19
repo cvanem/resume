@@ -50,7 +50,7 @@ export interface Project {
   name: string;
   client: string;
   years: string;
-  kicker: string; // short category label, e.g. "AI-native commerce"
+  kicker: string; // short category label, e.g. "Commerce at scale"
   description: string;
   highlights: string[];
   tech: string[];
@@ -67,7 +67,7 @@ export interface SkillGroup {
 export const profile: Profile = {
   name: "Chris Van Emmerik",
   title: "Senior Full Stack Engineer",
-  tagline: "Two decades shipping product — from in-circuit forensics to AI-native commerce.",
+  tagline: "Two decades shipping product — from in-circuit forensics to large-scale e-commerce.",
   summary:
     "I build complete products: information architecture, backend, UI, and the unglamorous " +
     "details in between. B.S. in Computer Engineering, 13 years building and leading product " +
@@ -107,12 +107,12 @@ export const eras: Era[] = [
           "Designed, built, and maintain the full online storefront for a two-location Florida " +
           "retailer with 150,000+ SKUs.",
         bullets: [
-          "Built “Ask Howard,” an AI shopping agent on the Anthropic API: hand-rolled streaming tool-use loop over SSE with 7 commerce tools (search, live inventory, shipping estimates, cart actions), prompt caching, and prompt-injection defenses.",
-          "Engineered hybrid product search: Pinecone semantic vectors fused with Algolia keyword results via Reciprocal Rank Fusion, re-ranked against live MySQL stock and pricing.",
           "Full commerce stack: Stripe + PayPal checkout, subscriptions, dynamic tax, multi-warehouse ShipEngine/FedEx live rating, in-store pickup, returns with prepaid labels.",
+          "Faceted catalog search across 150,000+ SKUs with Algolia InstantSearch, surfacing live per-store inventory and pricing from MySQL.",
           "Static generation at scale — pre-generated category/product pages, virtualized product grids, AVIF/WebP image pipeline.",
+          "Customer accounts, order history and tracking, and authentication with Clerk.",
         ],
-        tech: ["Next.js", "React 19", "TypeScript", "Anthropic API", "Pinecone", "Algolia", "Stripe", "MySQL", "Vercel"],
+        tech: ["Next.js", "React 19", "TypeScript", "Algolia", "Stripe", "PayPal", "MySQL", "Clerk", "Vercel"],
         link: { label: "familyhardware.com", href: "https://www.familyhardware.com" },
         projectId: "fh-web",
       },
@@ -253,21 +253,21 @@ export const projects: Project[] = [
     name: "Family Hardware",
     client: "E-commerce platform · familyhardware.com",
     years: "2020 — Present",
-    kicker: "AI-native commerce",
+    kicker: "Commerce at scale",
     description:
       "Complete online storefront for a two-location Florida hardware retailer — 150,000+ SKUs, " +
       "built and operated end-to-end by one engineer.",
     highlights: [
-      "“Ask Howard” AI shopping agent: a hand-rolled streaming tool-use loop on the Anthropic API over Server-Sent Events, with 7 commerce tools — product search, live per-store inventory, shipping estimation, special-order quoting, and cart actions dispatched straight into Redux. Prompt caching keeps every turn fast and cheap; prompt-injection defenses keep it safe.",
-      "Hybrid search built for 150k SKUs: Pinecone semantic vectors + Algolia keyword retrieval fused with Reciprocal Rank Fusion, then re-ranked against live MySQL inventory so relevance never lies about stock.",
+      "Faceted catalog search across 150,000+ SKUs with Algolia InstantSearch, surfacing live per-store inventory and pricing from MySQL so results never misrepresent availability.",
       "Full commerce stack: Stripe Checkout + subscriptions + dynamic tax, PayPal, multi-warehouse ShipEngine/FedEx live rating with nearest-warehouse logic, in-store pickup, returns with prepaid labels, invoice PDF generation.",
       "Performance at catalog scale: pre-generated category/product pages, virtualized grids, AVIF/WebP image pipeline, tuned bundle splitting.",
+      "Customer accounts, order history and tracking, and Clerk-based authentication.",
     ],
-    tech: ["Next.js", "React 19", "TypeScript", "Anthropic API", "Pinecone", "Algolia", "Stripe", "PayPal", "ShipEngine", "MySQL", "Clerk", "Vercel"],
+    tech: ["Next.js", "React 19", "TypeScript", "Algolia", "Stripe", "PayPal", "ShipEngine", "MySQL", "Clerk", "Vercel"],
     links: [{ label: "familyhardware.com", href: "https://www.familyhardware.com" }],
     metrics: [
       { value: "150k+", label: "SKUs" },
-      { value: "7", label: "AI agent tools" },
+      { value: "2+1", label: "stores + online" },
       { value: "~635", label: "React components" },
     ],
   },
@@ -392,8 +392,8 @@ export const skillGroups: SkillGroup[] = [
     skills: ["Node.js", "C# / .NET", "C / C++", "MySQL", "PostgreSQL", "SQL Server", "DynamoDB", "REST APIs", "Serverless"],
   },
   {
-    label: "AI Engineering",
-    skills: ["Anthropic API", "Streaming tool-use agents", "Prompt caching", "Pinecone / vector search", "Hybrid retrieval (RRF)", "Embeddings"],
+    label: "AI Integration",
+    skills: ["Anthropic API (Claude)", "LLM-assisted internal tooling"],
   },
   {
     label: "Cloud & Infra",
