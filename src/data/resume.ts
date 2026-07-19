@@ -81,7 +81,7 @@ export const profile: Profile = {
     "details in between — backed by a B.S. in Computer Engineering. I build AI-forward and lean " +
     "on AI-assisted tooling across my workflow, and I care about speed, craft, and software that " +
     "feels obvious to use.",
-  location: "Longmont, CO & Lead, SD",
+  location: "Longmont, CO • Lead, SD",
   email: "chris@greenlinkservices.com",
   phone: "720-818-0350",
   github: "https://github.com/cvanem",
@@ -95,7 +95,7 @@ export const eras: Era[] = [
     period: "2017 — Present",
     role: "Owner & Full Stack Software Engineer",
     org: "Greenlink Services LLC · Single Member Software Consultancy",
-    location: "Longmont, CO & Lead, SD",
+    location: "Longmont, CO • Lead, SD",
     employmentType: "Independent · Contract",
     blurb: [
       "As the sole engineer, I take client engagements end to end — architecture, implementation, " +
