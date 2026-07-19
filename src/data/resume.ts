@@ -72,8 +72,7 @@ export const profile: Profile = {
     "I build complete products: information architecture, backend, UI, and the unglamorous " +
     "details in between. B.S. in Computer Engineering, 13 years building and leading product " +
     "engineering in the regulated gaming industry, and 8+ years shipping React/Next.js platforms " +
-    "end to end — for a Harvard Medical School teaching hospital, a 150,000-SKU retailer, and " +
-    "others. I care about speed, craft, and software that feels obvious to use.",
+    "end to end. I care about speed, craft, and software that feels obvious to use.",
   location: "Longmont, CO",
   email: "chris@greenlinkservices.com",
   phone: "720-818-0350",
