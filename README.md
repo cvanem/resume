@@ -1,6 +1,6 @@
 # Chris Van Emmerik — Portfolio
 
-Personal portfolio and living résumé. The site and the downloadable PDF résumé are both
+Personal portfolio and living resume. The site and the downloadable PDF resume are both
 generated from a single data source, so updating one file updates everything.
 
 ## Stack
@@ -8,14 +8,14 @@ generated from a single data source, so updating one file updates everything.
 - **Next.js 15** (App Router) + **React 19** + **TypeScript**
 - **StyleX** — compile-time atomic CSS-in-JS (design tokens, dark/light themes)
 - **MobX** — UI state (theme choice, timeline expansion, project dialogs)
-- **@react-pdf/renderer** — on-demand PDF résumé generation at `/api/resume`
+- **@react-pdf/renderer** — on-demand PDF resume generation at `/api/resume`
 - Deployed on **Vercel**
 
 ## The one file that matters
 
-All résumé/portfolio content lives in [`src/data/resume.ts`](src/data/resume.ts) —
+All resume/portfolio content lives in [`src/data/resume.ts`](src/data/resume.ts) —
 profile, career timeline, featured projects, skills, education. Both the website and the
-PDF résumé render from it. To update the résumé: edit that file, done. The PDF at
+PDF resume render from it. To update the resume: edit that file, done. The PDF at
 `/api/resume` is generated fresh on every request.
 
 > **TODO:** confirm the start years for the Family Hardware and MIND engagements
