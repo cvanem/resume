@@ -42,12 +42,10 @@ const styles = StyleSheet.create({
   },
   contactWrap: {
     flexDirection: "row",
-    justifyContent: "center",
-    gap: 16,
     marginTop: 9,
   },
   contactCol: {
-    width: 244,
+    width: "50%",
     gap: 4,
   },
   contactEntry: {
@@ -352,6 +350,7 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
         {/* Header */}
         <Text style={styles.name}>{profile.name}</Text>
         <Text style={styles.headline}>{profile.title}</Text>
+        <View style={styles.headerRule} />
         <Contact />
         <View style={styles.headerRule} />
         <Text style={styles.summary}>{profile.summary}</Text>
