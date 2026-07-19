@@ -66,6 +66,10 @@ const styles = stylex.create({
     gap: 18,
     marginTop: 6,
   },
+  metric: {
+    display: "flex",
+    flexDirection: "column",
+  },
   metricValue: {
     fontFamily: fonts.mono,
     fontSize: 17,
@@ -303,7 +307,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         {project.metrics ? (
           <span {...stylex.props(styles.cardMetrics)}>
             {project.metrics.map((metric) => (
-              <span key={metric.label}>
+              <span key={metric.label} {...stylex.props(styles.metric)}>
                 <span {...stylex.props(styles.metricValue)}>{metric.value}</span>
                 <span {...stylex.props(styles.metricLabel)}>{metric.label}</span>
               </span>

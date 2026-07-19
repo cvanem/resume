@@ -3,7 +3,6 @@
 import * as stylex from "@stylexjs/stylex";
 import { colors, fonts } from "@/theme/tokens.stylex";
 import { profile } from "@/data/resume";
-import { DownloadResumeButton } from "./DownloadResumeButton";
 
 const fadeUp = stylex.keyframes({
   from: { opacity: 0, transform: "translateY(16px)" },
@@ -92,32 +91,6 @@ const styles = stylex.create({
     lineHeight: 1.65,
     color: colors.textSecondary,
     maxWidth: 660,
-    marginBottom: 32,
-  },
-  actions: {
-    display: "flex",
-    flexWrap: "wrap",
-    alignItems: "center",
-    gap: 12,
-  },
-  secondaryBtn: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: 8,
-    fontSize: 14,
-    fontWeight: 500,
-    lineHeight: 1,
-    paddingBlock: 10,
-    paddingInline: 16,
-    borderRadius: 8,
-    color: colors.text,
-    textDecoration: "none",
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: { default: colors.border, ":hover": colors.borderStrong },
-    backgroundColor: { default: "transparent", ":hover": colors.chipBg },
-    transitionProperty: "border-color, background-color",
-    transitionDuration: "0.15s",
   },
 });
 
@@ -136,15 +109,6 @@ export function Hero() {
         <h1 {...stylex.props(styles.name, styles.animated(80))}>{profile.name}</h1>
         <p {...stylex.props(styles.title, styles.animated(160))}>{profile.title}</p>
         <p {...stylex.props(styles.summary, styles.animated(240))}>{profile.summary}</p>
-        <div {...stylex.props(styles.actions, styles.animated(320))}>
-          <DownloadResumeButton />
-          <a href="#experience" {...stylex.props(styles.secondaryBtn)}>
-            Explore the timeline
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-              <path d="M12 5v14m0 0 5-5m-5 5-5-5" />
-            </svg>
-          </a>
-        </div>
       </div>
     </div>
   );

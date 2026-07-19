@@ -7,8 +7,12 @@ const styles = stylex.create({
     maxWidth: 1024,
     marginInline: "auto",
     paddingInline: { default: 24, "@media (min-width: 768px)": 32 },
-    paddingBlock: { default: 56, "@media (min-width: 768px)": 88 },
+    paddingTop: { default: 56, "@media (min-width: 768px)": 88 },
+    paddingBottom: { default: 24, "@media (min-width: 768px)": 36 },
     scrollMarginTop: 80,
+  },
+  flushTop: {
+    paddingTop: { default: 24, "@media (min-width: 768px)": 36 },
   },
   kicker: {
     fontFamily: fonts.mono,
@@ -42,15 +46,17 @@ export function Section({
   title,
   lede,
   children,
+  flushTop = false,
 }: {
   id: string;
   kicker: string;
   title: string;
   lede?: string;
   children: ReactNode;
+  flushTop?: boolean;
 }) {
   return (
-    <section id={id} {...stylex.props(styles.section)}>
+    <section id={id} {...stylex.props(styles.section, flushTop && styles.flushTop)}>
       <p {...stylex.props(styles.kicker)}>{kicker}</p>
       <h2 {...stylex.props(styles.title)}>{title}</h2>
       {lede ? <p {...stylex.props(styles.lede)}>{lede}</p> : null}

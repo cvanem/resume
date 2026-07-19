@@ -4,7 +4,8 @@
  *
  * Loaded lazily on the client — never part of the main bundle.
  */
-import { Document, Page, Text, View, Link, StyleSheet } from "@react-pdf/renderer";
+import type { ReactNode } from "react";
+import { Document, Page, Text, View, Link, Svg, G, Path, Circle, StyleSheet } from "@react-pdf/renderer";
 import { profile, eras, education, training, skillGroups } from "@/data/resume";
 
 const ACCENT = "#4c58c4";
@@ -12,6 +13,7 @@ const TEXT = "#16181d";
 const SECONDARY = "#4b4f57";
 const TERTIARY = "#7a7f88";
 const BORDER = "#e2e4e8";
+const RAIL = "#c8ccec"; // light accent tint for the era rail
 
 const styles = StyleSheet.create({
   page: {
@@ -42,20 +44,36 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap: 10,
-    marginTop: 8,
-    color: SECONDARY,
+    alignItems: "center",
+    marginTop: 9,
     fontSize: 8.5,
   },
-  contactSeparator: {
-    color: TERTIARY,
+  contactItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+    marginHorizontal: 6,
+  },
+  contactText: {
+    color: SECONDARY,
+    lineHeight: 1,
+  },
+  contactLink: {
+    color: ACCENT,
+    textDecoration: "none",
+    lineHeight: 1,
+  },
+  headerRule: {
+    borderBottomWidth: 1,
+    borderBottomColor: BORDER,
+    marginTop: 11,
   },
   summary: {
-    marginTop: 12,
+    marginTop: 11,
     color: SECONDARY,
   },
   section: {
-    marginTop: 16,
+    marginTop: 15,
   },
   sectionTitle: {
     fontSize: 10.5,
@@ -68,32 +86,43 @@ const styles = StyleSheet.create({
     paddingBottom: 4,
     marginBottom: 10,
   },
+  era: {
+    marginBottom: 13,
+  },
   eraHeader: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "baseline",
   },
   eraRole: {
+    flex: 1,
+    paddingRight: 10,
     fontSize: 11,
     fontFamily: "Helvetica-Bold",
-  },
-  eraMeta: {
-    fontSize: 8.5,
-    color: TERTIARY,
   },
   eraType: {
     fontSize: 9,
     fontFamily: "Helvetica",
     color: ACCENT,
   },
+  eraMeta: {
+    fontSize: 8.5,
+    color: TERTIARY,
+  },
   eraOrg: {
     fontSize: 9.5,
     color: SECONDARY,
     marginTop: 1,
-    marginBottom: 6,
+    marginBottom: 7,
+  },
+  eraItems: {
+    marginLeft: 3,
+    paddingLeft: 12,
+    borderLeftWidth: 1.5,
+    borderLeftColor: RAIL,
   },
   item: {
-    marginBottom: 8,
+    marginBottom: 9,
   },
   itemTitleRow: {
     flexDirection: "row",
@@ -101,6 +130,8 @@ const styles = StyleSheet.create({
     alignItems: "baseline",
   },
   itemTitle: {
+    flex: 1,
+    paddingRight: 8,
     fontSize: 10,
     fontFamily: "Helvetica-Bold",
     color: TEXT,
@@ -111,16 +142,17 @@ const styles = StyleSheet.create({
   },
   itemSummary: {
     color: SECONDARY,
-    marginTop: 1,
+    marginTop: 1.5,
   },
   bulletRow: {
     flexDirection: "row",
     marginTop: 2.5,
-    paddingLeft: 2,
+    paddingLeft: 1,
   },
   bulletGlyph: {
-    width: 10,
+    width: 9,
     color: ACCENT,
+    fontFamily: "Helvetica-Bold",
   },
   bulletText: {
     flex: 1,
@@ -165,24 +197,107 @@ const styles = StyleSheet.create({
   },
 });
 
+const ICONS: Record<string, ReactNode> = {
+  pin: (
+    <G>
+      <Path
+        d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"
+        fill="none"
+        stroke={SECONDARY}
+        strokeWidth={2}
+        strokeLinejoin="round"
+      />
+      <Circle cx={12} cy={10} r={3} fill="none" stroke={SECONDARY} strokeWidth={2} />
+    </G>
+  ),
+  phone: (
+    <Path
+      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+      fill="none"
+      stroke={SECONDARY}
+      strokeWidth={2}
+      strokeLinejoin="round"
+    />
+  ),
+  mail: (
+    <G>
+      <Path
+        d="M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z"
+        fill="none"
+        stroke={ACCENT}
+        strokeWidth={2}
+        strokeLinejoin="round"
+      />
+      <Path d="m2 7 10 6 10-6" fill="none" stroke={ACCENT} strokeWidth={2} strokeLinejoin="round" />
+    </G>
+  ),
+  github: (
+    <Path
+      d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+      fill="none"
+      stroke={ACCENT}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  ),
+  upwork: (
+    <G>
+      <Path
+        d="M4 7h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z"
+        fill="none"
+        stroke={ACCENT}
+        strokeWidth={2}
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+        fill="none"
+        stroke={ACCENT}
+        strokeWidth={2}
+        strokeLinejoin="round"
+      />
+    </G>
+  ),
+};
+
+function Icon({ name, size = 9 }: { name: keyof typeof ICONS; size?: number }) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24">
+      {ICONS[name]}
+    </Svg>
+  );
+}
+
 function Contact() {
   return (
     <View style={styles.contactRow}>
-      <Text>{profile.location}</Text>
-      <Text style={styles.contactSeparator}>·</Text>
-      <Text>{profile.phone}</Text>
-      <Text style={styles.contactSeparator}>·</Text>
-      <Link src={`mailto:${profile.email}`} style={styles.link}>
-        {profile.email}
-      </Link>
-      <Text style={styles.contactSeparator}>·</Text>
-      <Link src={profile.github} style={styles.link}>
-        github.com/cvanem
-      </Link>
-      <Text style={styles.contactSeparator}>·</Text>
-      <Link src={profile.upwork} style={styles.link}>
-        upwork.com/freelancers/chrisvanemmerik
-      </Link>
+      <View style={styles.contactItem}>
+        <Icon name="pin" />
+        <Text style={styles.contactText}>{profile.location}</Text>
+      </View>
+      <View style={styles.contactItem}>
+        <Icon name="phone" />
+        <Text style={styles.contactText}>{profile.phone}</Text>
+      </View>
+      <View style={styles.contactItem}>
+        <Icon name="mail" />
+        <Link src={`mailto:${profile.email}`} style={styles.contactLink}>
+          {profile.email}
+        </Link>
+      </View>
+      <View style={styles.contactItem}>
+        <Icon name="github" />
+        <Link src={profile.github} style={styles.contactLink}>
+          github.com/cvanem
+        </Link>
+      </View>
+      <View style={styles.contactItem}>
+        <Icon name="upwork" />
+        <Link src={profile.upwork} style={styles.contactLink}>
+          Upwork Profile
+        </Link>
+      </View>
     </View>
   );
 }
@@ -200,6 +315,7 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
         <Text style={styles.name}>{profile.name}</Text>
         <Text style={styles.headline}>{profile.title}</Text>
         <Contact />
+        <View style={styles.headerRule} />
         <Text style={styles.summary}>{profile.summary}</Text>
 
         {/* Experience */}
@@ -208,7 +324,7 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
           {eras
             .filter((era) => era.id !== "education")
             .map((era) => (
-              <View key={era.id} style={{ marginBottom: 10 }}>
+              <View key={era.id} style={styles.era}>
                 <View style={styles.eraHeader}>
                   <Text style={styles.eraRole}>
                     {era.role}
@@ -221,21 +337,23 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
                 <Text style={styles.eraOrg}>
                   {era.org} · {era.location}
                 </Text>
-                {era.items.map((item) => (
-                  <View key={item.id} style={styles.item} wrap={false}>
-                    <View style={styles.itemTitleRow}>
-                      <Text style={styles.itemTitle}>{item.title}</Text>
-                      <Text style={styles.itemYears}>{item.years}</Text>
-                    </View>
-                    <Text style={styles.itemSummary}>{item.summary}</Text>
-                    {item.bullets.map((bullet) => (
-                      <View key={bullet} style={styles.bulletRow}>
-                        <Text style={styles.bulletGlyph}>›</Text>
-                        <Text style={styles.bulletText}>{bullet}</Text>
+                <View style={styles.eraItems}>
+                  {era.items.map((item) => (
+                    <View key={item.id} style={styles.item} wrap={false}>
+                      <View style={styles.itemTitleRow}>
+                        <Text style={styles.itemTitle}>{item.title}</Text>
+                        <Text style={styles.itemYears}>{item.years}</Text>
                       </View>
-                    ))}
-                  </View>
-                ))}
+                      <Text style={styles.itemSummary}>{item.summary}</Text>
+                      {item.bullets.map((bullet) => (
+                        <View key={bullet} style={styles.bulletRow}>
+                          <Text style={styles.bulletGlyph}>•</Text>
+                          <Text style={styles.bulletText}>{bullet}</Text>
+                        </View>
+                      ))}
+                    </View>
+                  ))}
+                </View>
               </View>
             ))}
         </View>
@@ -270,7 +388,9 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
         </View>
 
         <View style={styles.footer} fixed>
-          <Text>{profile.name} — {profile.title}</Text>
+          <Text>
+            {profile.name} — {profile.title}
+          </Text>
           <Text
             render={({ pageNumber, totalPages }) =>
               `Generated ${generatedOn} · Page ${pageNumber} of ${totalPages}`

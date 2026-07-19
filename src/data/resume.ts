@@ -43,7 +43,12 @@ export interface Era {
   location: string;
   /** Short employment-type badge, e.g. "Independent · Contract" or "Full-time". */
   employmentType?: string;
-  blurb: string;
+  /** One paragraph, or an array rendered as separate paragraphs. */
+  blurb: string | string[];
+  /** Optional heading above the items list, e.g. "Noteworthy Projects". */
+  itemsLabel?: string;
+  /** Optional caption under itemsLabel, e.g. to note the list is a selection. */
+  itemsCaption?: string;
   items: TimelineItem[];
 }
 
@@ -86,16 +91,20 @@ export const eras: Era[] = [
   {
     id: "freelance",
     period: "2017 — Present",
-    role: "Founder & Principal Software Engineer",
-    org: "Greenlink Services LLC · Independent software consultancy",
+    role: "Owner & Full Stack Software Engineer",
+    org: "Greenlink Services LLC · Single Member Software Consultancy",
     location: "Lead, SD",
     employmentType: "Independent · Contract",
-    blurb:
-      "My own single-member consultancy. As the sole engineer, I take client engagements " +
-      "end to end — architecture, implementation, deployment, and years of ongoing operation. " +
-      "I integrate AI-assisted tooling throughout the workflow — from rapid prototyping to code " +
-      "review and testing — so more time goes to the architecture and UX decisions that actually " +
-      "matter, without trading away rigor.",
+    blurb: [
+      "As the sole engineer, I take client engagements end to end — architecture, implementation, " +
+        "deployment, and years of ongoing operation. AI-assisted tooling runs throughout my " +
+        "workflow — rapid prototyping, code review, testing — so more time goes to the architecture " +
+        "and UX decisions that matter.",
+      "I take on clients through direct contract or via Upwork, where I've earned $300k+ across " +
+        "3,800+ hours logged for 30+ clients with a 100% job success score.",
+    ],
+    itemsLabel: "Noteworthy Projects",
+    itemsCaption: "A selection of the work I'm most proud of.",
     items: [
       {
         id: "receiptkit",
@@ -103,15 +112,16 @@ export const eras: Era[] = [
         title: "ReceiptKit — Cloud-to-Thermal Printing Platform",
         summary:
           "Co-founder and sole engineer of receiptkit.io — “receipt printing in 3 lines of code.” " +
-          "Design a receipt in a visual editor, then print to physical Star Micronics thermal " +
+          "Design a receipt in a visual editor, then print to physical thermal " +
           "printers from any web or cloud app via a simple JSON API. I architected and built the " +
           "entire solution.",
         bullets: [
-          "The problem: browsers and cloud servers can't reach thermal printers, which speak proprietary binary protocols over raw TCP/USB on the local network. Built the missing edge “bridge” that renders and prints in ~40ms locally, ~97ms over the cloud.",
-          "Implemented the Star Micronics binary protocol from scratch in Rust — Star Graphics Mode raster encoding, RGBA-to-1-bit Floyd–Steinberg dithering, and cash-drawer control.",
+          "The problem: browsers and cloud servers can't reach thermal printers, which speak proprietary binary protocols over raw TCP/USB on the local network — and Star's own cloud paths (CloudPRNT polling, MQTT) can't print image receipts fast enough. Built the missing edge “bridge” that caches templates, renders locally, and pushes print data straight to the printer over USB/Ethernet — ~40ms locally, ~97ms over the cloud.",
+          "Designed a “pseudo-SVG” template format for speed: an SVG template plus dynamic JSON transforms to an SVG image, then to printer binary. Both hops are extremely fast — the quickest render path I found for image-based receipts, not just text.",
           "Cut render latency ~50x (600ms to 12ms) with a custom ttf-parser text-to-path pre-processor that eliminates the rasterizer's system-font resolution — verified byte-identical output before shipping.",
-          "Real-time status, presence, and job dispatch over AWS IoT MQTT with per-org-scoped policies; deliberate offline-first failover to a LAN HTTP bridge so the register keeps printing when the internet drops.",
-          "AI template generation with Claude, including vision — photograph a paper receipt and get back an editable template, SSE-streamed.",
+          "Real-time status, presence, and job dispatch over AWS IoT MQTT — chosen as a lightweight pub/sub transport that scales to large device fleets cost-effectively; per-org-scoped policies, plus deliberate offline-first failover to a LAN HTTP bridge so the register keeps printing when the internet drops.",
+          "Built the visual editor — a drag-and-drop SVG template designer with dynamic, data-bound elements and fields that render live against real order data.",
+          "Three AI authoring paths with Claude: generate a template from a text prompt, refine an existing one through incremental AI edits, or photograph a paper receipt and get an editable template back via vision — all SSE-streamed.",
         ],
         tech: ["Next.js 16", "React 19", "TypeScript", "Rust", "Tauri", "AWS IoT MQTT", "Supabase", "Stripe", "Anthropic API"],
         link: { label: "receiptkit.io", href: "https://receiptkit.io" },
@@ -139,15 +149,18 @@ export const eras: Era[] = [
         years: "2020 — Present", // TODO(chris): confirm start year
         title: "Family Hardware — POS & Business Management Platform",
         summary:
-          "The internal operating system for the whole business: point of sale, inventory, " +
-          "purchasing, AR, fulfillment, and reporting across two stores plus online.",
+          "The internal operating system for the whole business: point of sale, accounts " +
+          "receivable, inventory, purchasing, fulfillment, and reporting across two stores plus online.",
         bullets: [
-          "~50 feature modules and ~86 API endpoints: registers and reconciliation, purchase orders, accounts receivable with automated finance charges, deliveries, warranty, and specialty workflows.",
-          "In-person payments with Stripe Terminal, receipt printing via Star CloudPRNT plus a custom local print bridge, barcode scanning, and a queued label-printing subsystem.",
-          "Real-time register/device messaging over AWS IoT Core MQTT (WebSockets, custom authorizer).",
-          "AI-assisted operations: Claude-powered inventory analysis and a cron-driven daily business briefing.",
+          "Built the point-of-sale register — the highest-stakes screen in the business: a live cart driven by a scan-to-add SKU input, with fast item find.",
+          "Cart engine handling line-item discounts, price adjustments, and return processing, with checkout for cash, credit-card, and on-account invoice tenders — all reconciled through Stripe and the owner's backend databases.",
+          "Designed the discount engine from scratch: stacking rules, item- and order-level promotions, and the edge cases that have to stay correct to the cent.",
+          "Full refund workflows across credit card and cash, including partial returns and split tenders, with per-line-item tracking that caps refundable quantities and prevents over-refunding before anything reaches Stripe.",
+          "In-person payments via Stripe Terminal, receipt printing over Star CloudPRNT plus a custom local print bridge, and real-time register/device messaging over AWS IoT MQTT.",
+          "Accounts receivable, end to end: on-account invoicing, customer credits from returns and overpayments, automated monthly finance charges, an accounts-aging dashboard, and statements sent by email or physical mail — with AI-drafted collection emails.",
+          "Deep back-office breadth: product and inventory management with duplicate guards and inventory-health advisories, Algolia search, multi-carrier fulfillment via ShipEngine across pickup, delivery, and online orders, purchase orders and suppliers, plus warranty and mail-in tool-sharpening workflows.",
         ],
-        tech: ["Next.js", "TypeScript", "MySQL", "DynamoDB", "Stripe Terminal", "AWS IoT", "Algolia", "Vercel"],
+        tech: ["Next.js", "TypeScript", "MySQL", "DynamoDB", "Stripe Terminal", "AWS IoT", "Algolia", "ShipEngine", "Vercel"],
         note: "Private / internal tool",
         projectId: "fh-admin",
       },
@@ -161,9 +174,10 @@ export const eras: Era[] = [
         bullets: [
           "Created and maintain the public React platform behind MIND (M-Health Index & Navigation Database).",
           "600+ mental-health apps evaluated against 105 objective criteria from the American Psychiatric Association's evaluation framework.",
+          "Built the data pipeline: scrapes app metadata from the Apple App Store and Google Play, merges it with human rater reviews, and runs it through an approval workflow that governs how ratings are published and kept current.",
           "Used by clinicians and patients worldwide to find safe, effective mental-health apps.",
         ],
-        tech: ["React", "TypeScript"],
+        tech: ["React", "TypeScript", "Web scraping"],
         link: { label: "mindapps.org", href: "https://mindapps.org" },
         projectId: "mind",
       },
@@ -178,39 +192,41 @@ export const eras: Era[] = [
     employmentType: "Full-time",
     blurb:
       "Thirteen years building and leading product engineering at the world's largest gaming " +
-      "test lab — shipping verification tools, SaaS compliance platforms, and running a forensics " +
-      "practice trusted in legal proceedings.",
+      "test lab — shipping verification tools, compliance platforms, and performing numerous " +
+      "forensic investigations.",
     items: [
       {
         id: "verify",
         years: "2006 — 2017",
-        title: "GLI Verify / Verify+",
+        title: "Verify+ (formerly GLI Verify)",
         summary:
           "Software-authentication tool that became the most widely used verification product in " +
-          "the casino industry.",
+          "the casino industry — safeguarding the integrity of a multi-billion-dollar global gaming market.",
         bullets: [
           "Developed the product from the ground up in managed C#, C++, and unmanaged C++.",
           "Implemented an Ext2/Ext3 file-system driver enabling Windows to read and hash Linux files and directories on Linux partitions.",
           "Device-level signature methods for partitions, MBR, CD/DVD, and CF cards; worked directly with gaming manufacturers on proprietary hardware signature methodologies.",
+          "Built client-level snapshot replication: logged-in clients pull a local snapshot of their approval database from the central system, so every signature they compute is matched against it automatically — instantly identifying the exact game or software build and its regulatory approval status.",
           "Led the conversion from freemium tool to subscription service exceeding $500k annual revenue.",
         ],
         tech: ["C#", "C++", "Win32", "SQL Server", "SQLite"],
+        link: { label: "store.kobetron.com", href: "https://store.kobetron.com/collections/frontpage/products/monthly-subscription" },
         projectId: "verify",
       },
       {
         id: "forensics",
         years: "2006 — 2017",
-        title: "Forensic Analysis Practice",
+        title: "Forensic Analysis",
         summary:
-          "Founded and ran GLI's forensic department, investigating slot-machine malfunction " +
-          "incidents worldwide.",
+          "Primary forensic investigator for slot-machine malfunction incidents worldwide — " +
+          "the go-to engineer for the hardest cases.",
         bullets: [
-          "Set up the department: testing methodology, procedures, and training for engineers.",
+          "Extracted and dumped RAM from physical gaming devices, then analyzed memory and source code to pinpoint bugs and points of failure.",
+          "Reproduced reported malfunctions on live hardware, documenting each step of the analysis as it happened.",
           "Used in-circuit emulation and hardware debuggers to step through live source on physical devices, tracing code paths to hardware behavior.",
-          "Expert-level low-level program, memory, and communication analysis.",
-          "Authored numerous forensic investigation reports and legal opinions relied on in disputes.",
+          "Partnered with compliance and engineering management to build out the practice's testing methodology and procedures.",
         ],
-        tech: ["In-circuit emulation", "Assembly", "C/C++", "Hardware debugging"],
+        tech: ["In-circuit emulation", "RAM extraction", "Deep source-code analysis", "Assembly", "C/C++", "Hardware debugging"],
         projectId: "forensics",
       },
       {
@@ -221,7 +237,7 @@ export const eras: Era[] = [
           "On-floor verification of live casino software via unique, on-demand seeded signature " +
           "calculations.",
         bullets: [
-          "Created and established the project; adopted by 6 US regulatory jurisdictions.",
+          "Created and established the project; adopted by 6 US regulatory jurisdictions at the time, and now supported by virtually all gaming manufacturers.",
           "Generated testing revenue exceeding $1M annually.",
           "Designed the database structures, Windows calculation services, and integrations with GLI's product line.",
         ],
@@ -231,9 +247,9 @@ export const eras: Era[] = [
       {
         id: "iris",
         years: "2012 — 2017",
-        title: "Iris Online (GLiCloud)",
+        title: "Iris Online (formerly GLiCloud)",
         summary:
-          "SaaS inventory-tracking and regulatory-compliance platform for casinos and regulators.",
+          "Inventory-tracking and regulatory-compliance platform for casinos and regulators.",
         bullets: [
           "Designed and developed the product from the ground up, then built and led the team that ran it.",
           "Customer onboarding with automated data import and mismatch-resolution UI, real-time status notifications, dynamic change-request workflows, and a regulated-shipping interface.",
@@ -250,6 +266,7 @@ export const eras: Era[] = [
           "Integrated Verify+ hashing/verification engines with a C# WPF tablet UI; managed contract hardware and software engineers.",
         ],
         tech: ["C#", "WPF", "Embedded"],
+        link: { label: "store.kobetron.com", href: "https://store.kobetron.com/collections/frontpage/products/gi-4000-pro-bundle-deal" },
       },
     ],
   },
@@ -281,12 +298,15 @@ export const projects: Project[] = [
       "engine.",
     highlights: [
       "The core problem: browsers and cloud servers can't talk to thermal printers, which speak proprietary binary protocols over raw TCP/USB on the local network. ReceiptKit is the bridge — a visual template editor and a session.print({ data }) SDK on top, hiding all the rendering, binary-protocol, real-time-transport, and printer-status complexity underneath.",
+      "A visual, drag-and-drop SVG template editor: dynamic, data-bound elements and fields that render live against real order data — so anyone can design a receipt and developers just pass the JSON.",
+      "The speed comes from a “pseudo-SVG” template format I designed: an SVG template plus positioned elements and dynamic JSON that transforms into a flat SVG image, then into printer binary. I chose it because both hops are cheap — template-to-SVG is a near-instant transform, and SVG → 1-bit raster → Star binary is tight bitmap work — making it the fastest end-to-end path I found for image-based receipts (logos, barcodes, QR), not just text.",
       "Cut render latency ~50x (600ms → 12ms median). Profiling showed the rasterizer spent ~85% of its time loading ~360 system fonts and resolving text, so I wrote a standalone Rust text-to-path pre-processor (ttf-parser only, zero rasterizer dependency) that outlines every glyph — kerning, baselines, text-anchor — letting the rasterizer skip font resolution entirely. Verified byte-identical output before shipping, so a pure speed win carried zero quality risk.",
       "Implemented the Star Micronics binary protocol from scratch in Rust: Star Graphics Mode raster headers with little-endian packing, RGBA→luma→1-bit conversion via hard-threshold or Floyd–Steinberg dithering, MSB-first bit packing, and cash-drawer kick commands.",
+      "Print delivery has to be local, and I proved why empirically: Star printers only print image-based receipts fast when data is pushed directly to them. Their own network paths couldn't keep up — CloudPRNT polls on a ~5s interval, and even Star's MQTT print path choked on image receipts (the hardware prints text-only receipts fast, images slowly). So the architecture offloads rendering and template caching to the edge bridge: templates cache locally, the transform runs on the bridge, only the small dynamic JSON payload crosses the network, and the bridge sends the finished job straight to the printer over USB/Ethernet — the design that keeps end-to-end print times under ~100ms.",
       "Solved a subtle systems problem: Star printers share one TCP port (9100) for both print data and status queries, so polling from multiple dashboard tabs delayed print jobs by 2–3s. Layered fixes — a status cache with TTL, post-print suppression to keep the port clear during the printer's mechanical phase, detached async tasks, and parallelized queries — brought latency back under control.",
-      "Real-time transport over AWS IoT MQTT with a custom Lambda authorizer enforcing per-org topic policies and retained Last-Will messages for bridge presence. Chose MQTT-primary with mDNS-discovered LAN-HTTP failover — a deliberate “fallback-first” design so a store keeps printing and opening its cash drawer when the internet drops.",
+      "Real-time transport over AWS IoT MQTT — chosen for its lightweight pub/sub model, which scales to large fleets of always-connected devices far more cost-effectively than persistent WebSocket servers or HTTP polling. A custom Lambda authorizer enforces per-org topic policies, and retained Last-Will messages track bridge presence. MQTT-primary with mDNS-discovered LAN-HTTP failover — a deliberate “fallback-first” design so a store keeps printing and opening its cash drawer when the internet drops.",
       "Kept one canonical TypeScript SVG generator byte-identical across three runtimes — the browser, an embedded QuickJS engine inside the Rust bridge, and a native Rust reimplementation (~10x faster) — trading a custom esbuild pipeline for a single source of truth instead of divergent copies.",
-      "AI template generation with Claude, including a vision mode: photograph a paper receipt and get back an editable template, SSE-streamed, with JSON repair, retry/backoff, and an automatic font-audit pass.",
+      "AI template authoring with Claude, three ways: generate a template from a natural-language prompt, refine an existing template through incremental AI edits (targeted, diff-style changes rather than full regeneration), and a vision mode — photograph a paper receipt and get back an editable template. All SSE-streamed, with JSON repair, retry/backoff, and an automatic font-audit pass.",
     ],
     tech: ["Next.js 16", "React 19", "TypeScript", "Rust", "Tauri 2", "AWS IoT MQTT", "Supabase", "Stripe", "Anthropic API", "Vercel"],
     links: [{ label: "receiptkit.io", href: "https://receiptkit.io" }],
@@ -329,17 +349,20 @@ export const projects: Project[] = [
       "The internal operating system for the entire business: point of sale, inventory, " +
       "purchasing, accounts receivable, fulfillment, and reporting across two stores plus online.",
     highlights: [
-      "Point of sale with Stripe Terminal card readers (live reader-display control over MQTT), cash management, register reconciliation, and gift cards.",
-      "Hardware where it counts: Star CloudPRNT receipt printing plus a custom local print bridge, barcode scanners, and a queued label-printing subsystem backed by S3.",
-      "Real-time device and register messaging over AWS IoT Core MQTT with WebSockets and a custom authorizer.",
-      "Deep back-office coverage: ~50 feature modules and ~86 API endpoints — purchase orders, supplier shipments, AR aging with automated monthly finance charges, deliveries, warranty tracking, and mail-in sharpening workflows.",
-      "AI-assisted operations: Claude-powered inventory analysis and a cron-driven daily business briefing surfacing metrics that matter.",
+      "The point-of-sale register — the highest-stakes screen in the business: a live cart driven by a scan-to-add SKU input, with fast item find.",
+      "Cart engine handling line-item discounts, price adjustments, and return processing, with checkout flows for cash, credit-card, and on-account invoice tenders — all reconciled through Stripe and the owner's backend databases.",
+      "A from-scratch discount engine: stacking rules, item- and order-level promotions, and the edge cases that have to stay correct to the cent.",
+      "Full refund workflows across credit card and cash — partial returns and split tenders — with per-line-item return tracking that caps refundable quantities and blocks over-refunding before anything reaches Stripe.",
+      "In-person payments with Stripe Terminal (live reader-display control over MQTT), Star CloudPRNT receipt printing plus a custom local print bridge, barcode scanners, and a queued label-printing subsystem, all over real-time AWS IoT MQTT.",
+      "Accounts receivable, end to end: on-account invoicing, customer credits from returns and overpayments, automated monthly finance charges, an accounts-aging dashboard (current / 30 / 60 / 90+ buckets), and statements delivered by email or physical mail — plus AI-drafted, relationship-aware collection emails.",
+      "Catalog and inventory management: product create/edit with SKU/UPC/GTIN/MPN duplicate guards, unit-of-measure-aware margin pricing, Algolia-powered product and customer search, and inventory-health tooling — confidence scoring, negative-margin and reorder-point advisories, and critical/excess/negative-stock reports.",
+      "Omnichannel fulfillment and purchasing: in-store, pickup, delivery, and online orders; ShipEngine multi-carrier rate shopping, label creation, and address validation with auto-detected FedEx/UPS/USPS tracking; purchase orders and supplier management; plus warranty tracking and mail-in tool-sharpening workflows.",
+      "Register operations and reporting: end-of-day register totals, reconciliation, and bank deposits; gift cards and coupon/promotion codes; and dashboards with YTD, monthly, and category-level charts.",
     ],
-    tech: ["Next.js", "TypeScript", "MySQL", "DynamoDB", "Stripe Terminal", "AWS IoT MQTT", "Algolia", "ShipEngine", "S3", "Vercel"],
+    tech: ["Next.js", "TypeScript", "MySQL", "DynamoDB", "Stripe Terminal", "AWS IoT MQTT", "Algolia", "ShipEngine", "PostGrid", "Anthropic API", "S3", "Vercel"],
     note: "Private / internal tool",
     metrics: [
-      { value: "~50", label: "feature modules" },
-      { value: "~86", label: "API endpoints" },
+      { value: "Cash · Card · Invoice", label: "tender workflows" },
       { value: "2+1", label: "locations + web" },
     ],
   },
@@ -356,9 +379,10 @@ export const projects: Project[] = [
     highlights: [
       "Created and maintain the public React platform that clinicians use to match patients with safe, effective mental-health apps.",
       "600+ apps evaluated against 105 objective criteria based on the American Psychiatric Association's app-evaluation framework — searchable by condition, privacy posture, clinical foundation, and cost.",
+      "Automated data pipeline behind the ratings: scrapes app metadata from the Apple App Store and Google Play, combines it with human rater reviews, and gates every change through an approval workflow that controls how ratings are added and maintained on the site.",
       "Long-term engagement: built it, shipped it, and have kept it running and evolving ever since.",
     ],
-    tech: ["React", "TypeScript"],
+    tech: ["React", "TypeScript", "Web scraping"],
     links: [{ label: "mindapps.org", href: "https://mindapps.org" }],
     metrics: [
       { value: "600+", label: "apps evaluated" },
@@ -367,23 +391,27 @@ export const projects: Project[] = [
   },
   {
     id: "verify",
-    name: "GLI Verify / Verify+",
+    name: "Verify+ (formerly GLI Verify)",
     client: "Gaming Laboratories International",
     years: "2006 — 2017",
     kicker: "Industry-standard tooling",
     description:
       "Software-authentication tool for verifying casino gaming software — developed from the " +
-      "ground up into the most widely used verification product in the industry.",
+      "ground up into the most widely used verification product in the industry, responsible for " +
+      "maintaining the integrity of a multi-billion-dollar global gaming industry.",
     highlights: [
       "Wrote an Ext2/Ext3 file-system driver so Windows could read and hash Linux files and directories on Linux partitions — the kind of problem you solve when no library exists.",
       "Device-level signature methods for partitions, MBR, CD/DVD, and CF cards; collaborated directly with gaming manufacturers on signature methodologies for proprietary hardware.",
+      "Built client-level snapshot replication: logged-in clients pull a local snapshot of their approval database from our central system, so every signature they compute is matched against it automatically — instantly resolving the exact game or software build and its regulatory approval status.",
       "Led the business-model conversion from freemium to subscription, growing it past $500k in annual revenue.",
       "Managed C# and C++ alongside unmanaged C++; migrated the codebase from MFC to .NET.",
     ],
     tech: ["C#", "C++", "Win32", "MFC → .NET", "SQL Server", "SQLite"],
+    links: [{ label: "store.kobetron.com", href: "https://store.kobetron.com/collections/frontpage/products/monthly-subscription" }],
     metrics: [
       { value: "#1", label: "verification tool in casino industry" },
       { value: "$500k+", label: "annual subscription revenue" },
+      { value: "Multi-$B", label: "industry integrity safeguarded" },
     ],
   },
   {
@@ -393,16 +421,16 @@ export const projects: Project[] = [
     years: "2006 — 2017",
     kicker: "Hardware-level investigation",
     description:
-      "Founded and led GLI's forensic department, investigating slot-machine malfunction " +
-      "incidents around the world — where a bug can be worth millions and the answer has to hold " +
-      "up in court.",
+      "Primary forensic investigator for slot-machine malfunction incidents around the world — " +
+      "the engineer brought in for the hardest cases, where a bug can be worth millions and the " +
+      "answer has to hold up in court.",
     highlights: [
-      "Built the department from nothing: methodology, procedures documentation, and engineer training.",
+      "Extracted and dumped RAM from live gaming devices, then analyzed memory alongside source code to identify bugs and points of error.",
+      "Reproduced reported malfunctions on physical hardware, documenting the analysis step by step as the investigation unfolded.",
       "In-circuit emulation and hardware debuggers to step through source code executing on physical gaming devices, mapping functionality to hardware components.",
-      "Expert-level low-level program, memory, and communication analysis.",
       "Authored numerous forensic reports and legal opinions relied on in regulatory disputes and litigation.",
     ],
-    tech: ["In-circuit emulation", "Assembly", "C/C++", "Logic analysis", "Embedded hardware"],
+    tech: ["In-circuit emulation", "RAM extraction", "Deep source-code analysis", "Assembly", "C/C++", "Logic analysis", "Embedded hardware"],
     metrics: [
       { value: "Worldwide", label: "incident investigations" },
       { value: "Court-ready", label: "reports & legal opinions" },
@@ -418,14 +446,15 @@ export const projects: Project[] = [
       "On-floor verification of live casino software through unique, on-demand seeded signature " +
       "calculations — created, built, and scaled into a seven-figure product line.",
     highlights: [
-      "Conceived and established the project; adopted by 6 US regulatory jurisdictions.",
+      "Conceived and established the project; adopted by 6 US regulatory jurisdictions at the time, and now supported by virtually all gaming manufacturers.",
       "Generated testing revenue exceeding $1M annually.",
       "Designed the database structures, Windows calculation services, upload utilities, and integrations with the rest of GLI's product line.",
     ],
     tech: ["C#", ".NET", "SQL Server", "Windows Services"],
     metrics: [
       { value: "$1M+", label: "annual testing revenue" },
-      { value: "6", label: "US jurisdictions" },
+      { value: "6", label: "US jurisdictions at launch" },
+      { value: "Industry-wide", label: "manufacturer adoption today" },
     ],
   },
 ];

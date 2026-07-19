@@ -69,7 +69,7 @@ const styles = stylex.create({
 
 const LINKS = [
   { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
+  // { href: "#projects", label: "Projects" }, // Selected work section hidden — re-enable with the section in page.tsx
   { href: "#skills", label: "Skills" },
   { href: "#contact", label: "Contact" },
 ];

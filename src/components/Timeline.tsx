@@ -100,6 +100,21 @@ const styles = stylex.create({
     marginTop: 10,
     marginBottom: 20,
   },
+  itemsLabel: {
+    fontFamily: fonts.mono,
+    fontSize: 13,
+    fontWeight: 500,
+    letterSpacing: "0.08em",
+    textTransform: "uppercase",
+    color: colors.accentText,
+    marginBottom: 4,
+  },
+  itemsCaption: {
+    fontSize: 13,
+    lineHeight: 1.5,
+    color: colors.textTertiary,
+    marginBottom: 14,
+  },
   items: {
     display: "flex",
     flexDirection: "column",
@@ -339,17 +354,31 @@ function EraBlock({ era, isLast }: { era: Era; isLast: boolean }) {
           <p {...stylex.props(styles.org)}>
             {era.org} · {era.location}
           </p>
-          <p {...stylex.props(styles.blurb)}>{era.blurb}</p>
+          {(Array.isArray(era.blurb) ? era.blurb : [era.blurb]).map((para) => (
+            <p key={para} {...stylex.props(styles.blurb)}>
+              {para}
+            </p>
+          ))}
         </div>
       </Reveal>
       {era.items.length > 0 ? (
-        <div {...stylex.props(styles.items)}>
-          {era.items.map((item, index) => (
-            <Reveal key={item.id} delay={index * 60}>
-              <TimelineEntry item={item} />
+        <>
+          {era.itemsLabel ? (
+            <Reveal>
+              <p {...stylex.props(styles.itemsLabel)}>{era.itemsLabel}</p>
+              {era.itemsCaption ? (
+                <p {...stylex.props(styles.itemsCaption)}>{era.itemsCaption}</p>
+              ) : null}
             </Reveal>
-          ))}
-        </div>
+          ) : null}
+          <div {...stylex.props(styles.items)}>
+            {era.items.map((item, index) => (
+              <Reveal key={item.id} delay={index * 60}>
+                <TimelineEntry item={item} />
+              </Reveal>
+            ))}
+          </div>
+        </>
       ) : null}
     </div>
   );
