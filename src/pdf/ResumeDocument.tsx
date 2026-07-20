@@ -26,37 +26,28 @@ const styles = StyleSheet.create({
     color: TEXT,
     lineHeight: 1.4,
   },
+  headerTop: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+  },
   name: {
-    fontSize: 22,
+    fontSize: 23,
     fontFamily: "Helvetica-Bold",
     letterSpacing: -0.3,
     lineHeight: 1,
-    textAlign: "center",
   },
   headline: {
-    fontSize: 11,
+    fontSize: 11.5,
     color: ACCENT,
-    marginTop: 6,
+    marginTop: 5,
     fontFamily: "Helvetica-Bold",
     lineHeight: 1,
-    textAlign: "center",
   },
-  contactBlock: {
-    marginTop: 10,
-  },
-  contactRow: {
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    alignItems: "center",
-    gap: 8,
-  },
-  contactRow2: {
-    marginTop: 6,
-  },
-  sep: {
-    fontSize: 8,
-    color: "#c2c6cf",
-    lineHeight: 1,
+  headerRight: {
+    alignItems: "flex-end",
+    gap: 3.5,
+    paddingTop: 2,
   },
   contactEntry: {
     flexDirection: "row",
@@ -334,41 +325,15 @@ function ContactEntry({
   );
 }
 
-type Entry = { icon: keyof typeof ICONS; label: string; value: string; href?: string };
-
-function ContactLine({ items, second }: { items: Entry[]; second?: boolean }) {
-  const nodes: ReactNode[] = [];
-  items.forEach((it, i) => {
-    if (i > 0) {
-      nodes.push(
-        <Text key={`sep-${i}`} style={styles.sep}>
-          |
-        </Text>,
-      );
-    }
-    nodes.push(<ContactEntry key={it.label} {...it} />);
-  });
-  return <View style={second ? [styles.contactRow, styles.contactRow2] : styles.contactRow}>{nodes}</View>;
-}
-
 function Contact() {
   return (
-    <View style={styles.contactBlock}>
-      <ContactLine
-        items={[
-          { icon: "pin", label: "Location", value: profile.location },
-          { icon: "mail", label: "Email", value: profile.email, href: `mailto:${profile.email}` },
-          { icon: "phone", label: "Phone", value: profile.phone, href: `tel:${profile.phone}` },
-        ]}
-      />
-      <ContactLine
-        second
-        items={[
-          { icon: "globe", label: "Live Resume", value: displayUrl(profile.website), href: profile.website },
-          { icon: "upwork", label: "Upwork", value: displayUrl(profile.upwork), href: profile.upwork },
-          { icon: "github", label: "GitHub", value: displayUrl(profile.github), href: profile.github },
-        ]}
-      />
+    <View style={styles.headerRight}>
+      <ContactEntry icon="pin" label="Location" value={profile.location} />
+      <ContactEntry icon="mail" label="Email" value={profile.email} href={`mailto:${profile.email}`} />
+      <ContactEntry icon="phone" label="Phone" value={profile.phone} href={`tel:${profile.phone}`} />
+      <ContactEntry icon="globe" label="Live Resume" value={displayUrl(profile.website)} href={profile.website} />
+      <ContactEntry icon="upwork" label="Upwork" value={displayUrl(profile.upwork)} href={profile.upwork} />
+      <ContactEntry icon="github" label="GitHub" value={displayUrl(profile.github)} href={profile.github} />
     </View>
   );
 }
@@ -383,10 +348,13 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
     >
       <Page size="LETTER" style={styles.page}>
         {/* Header */}
-        <Text style={styles.name}>{profile.name}</Text>
-        <Text style={styles.headline}>{profile.title}</Text>
-        <View style={styles.headerRule} />
-        <Contact />
+        <View style={styles.headerTop}>
+          <View>
+            <Text style={styles.name}>{profile.name}</Text>
+            <Text style={styles.headline}>{profile.title}</Text>
+          </View>
+          <Contact />
+        </View>
         <View style={styles.headerRule} />
         <Text style={styles.summary}>
           <Text style={styles.summaryLead}>{profile.summaryLead} </Text>
