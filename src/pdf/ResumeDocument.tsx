@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   },
   topLinks: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     gap: 8,
   },
