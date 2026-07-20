@@ -44,14 +44,30 @@ const styles = StyleSheet.create({
   contactBlock: {
     marginTop: 10,
   },
-  contactRow: {
+  contactCols: {
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 20,
+    alignItems: "flex-start",
   },
-  contactRow2: {
-    marginTop: 6,
+  // Left and right columns share equal width (flex:1), which keeps the center
+  // column pinned to the page center — aligned under the centered title.
+  colLeft: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 0,
+    gap: 6,
+    alignItems: "flex-start",
+  },
+  colCenter: {
+    flexShrink: 0,
+    gap: 6,
+    alignItems: "center",
+  },
+  colRight: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 0,
+    gap: 6,
+    alignItems: "flex-end",
   },
   contactEntry: {
     flexDirection: "row",
@@ -332,15 +348,19 @@ function ContactEntry({
 function Contact() {
   return (
     <View style={styles.contactBlock}>
-      <View style={styles.contactRow}>
-        <ContactEntry icon="pin" label="Location" value={profile.location} />
-        <ContactEntry icon="mail" label="Email" value={profile.email} href={`mailto:${profile.email}`} />
-        <ContactEntry icon="phone" label="Phone" value={profile.phone} href={`tel:${profile.phone}`} />
-      </View>
-      <View style={[styles.contactRow, styles.contactRow2]}>
-        <ContactEntry icon="globe" label="Live Resume" value={displayUrl(profile.website)} href={profile.website} />
-        <ContactEntry icon="upwork" label="Upwork" value={displayUrl(profile.upwork)} href={profile.upwork} />
-        <ContactEntry icon="github" label="GitHub" value={displayUrl(profile.github)} href={profile.github} />
+      <View style={styles.contactCols}>
+        <View style={styles.colLeft}>
+          <ContactEntry icon="pin" label="Location" value={profile.location} />
+          <ContactEntry icon="globe" label="Live Resume" value={displayUrl(profile.website)} href={profile.website} />
+        </View>
+        <View style={styles.colCenter}>
+          <ContactEntry icon="mail" label="Email" value={profile.email} href={`mailto:${profile.email}`} />
+          <ContactEntry icon="upwork" label="Upwork" value={displayUrl(profile.upwork)} href={profile.upwork} />
+        </View>
+        <View style={styles.colRight}>
+          <ContactEntry icon="phone" label="Phone" value={profile.phone} href={`tel:${profile.phone}`} />
+          <ContactEntry icon="github" label="GitHub" value={displayUrl(profile.github)} href={profile.github} />
+        </View>
       </View>
     </View>
   );
