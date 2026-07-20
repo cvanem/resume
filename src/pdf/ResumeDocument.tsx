@@ -26,10 +26,22 @@ const styles = StyleSheet.create({
     color: TEXT,
     lineHeight: 1.4,
   },
+  topLinks: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+  },
+  sep: {
+    fontSize: 8,
+    color: "#c2c6cf",
+    lineHeight: 1,
+  },
   headerTop: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
+    marginTop: 10,
   },
   name: {
     fontSize: 23,
@@ -325,15 +337,24 @@ function ContactEntry({
   );
 }
 
+function TopLinks() {
+  return (
+    <View style={styles.topLinks}>
+      <ContactEntry icon="globe" label="Live Resume" value={displayUrl(profile.website)} href={profile.website} />
+      <Text style={styles.sep}>|</Text>
+      <ContactEntry icon="upwork" label="Upwork" value={displayUrl(profile.upwork)} href={profile.upwork} />
+      <Text style={styles.sep}>|</Text>
+      <ContactEntry icon="github" label="GitHub" value={displayUrl(profile.github)} href={profile.github} />
+    </View>
+  );
+}
+
 function Contact() {
   return (
     <View style={styles.headerRight}>
       <ContactEntry icon="pin" label="Location" value={profile.location} />
       <ContactEntry icon="mail" label="Email" value={profile.email} href={`mailto:${profile.email}`} />
       <ContactEntry icon="phone" label="Phone" value={profile.phone} href={`tel:${profile.phone}`} />
-      <ContactEntry icon="globe" label="Live Resume" value={displayUrl(profile.website)} href={profile.website} />
-      <ContactEntry icon="upwork" label="Upwork" value={displayUrl(profile.upwork)} href={profile.upwork} />
-      <ContactEntry icon="github" label="GitHub" value={displayUrl(profile.github)} href={profile.github} />
     </View>
   );
 }
@@ -348,6 +369,8 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
     >
       <Page size="LETTER" style={styles.page}>
         {/* Header */}
+        <TopLinks />
+        <View style={styles.headerRule} />
         <View style={styles.headerTop}>
           <View>
             <Text style={styles.name}>{profile.name}</Text>
