@@ -112,7 +112,7 @@ export function Hero() {
         <div {...stylex.props(styles.animated(0))}>
           <span {...stylex.props(styles.eyebrow)}>
             <span {...stylex.props(styles.dot)} />
-            {profile.location} · open to senior roles
+            {profile.location} • Remote · open to senior roles
           </span>
         </div>
         <h1 {...stylex.props(styles.name, styles.animated(80))}>{profile.name}</h1>

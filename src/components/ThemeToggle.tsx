@@ -24,15 +24,6 @@ const styles = stylex.create({
 });
 
 const ICONS: Record<ThemeChoice, { label: string; glyph: React.ReactNode }> = {
-  system: {
-    label: "Theme: system — switch to dark",
-    glyph: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-        <rect x="3" y="4" width="18" height="13" rx="2" />
-        <path d="M8 21h8M12 17v4" />
-      </svg>
-    ),
-  },
   dark: {
     label: "Theme: dark — switch to light",
     glyph: (
@@ -42,7 +33,7 @@ const ICONS: Record<ThemeChoice, { label: string; glyph: React.ReactNode }> = {
     ),
   },
   light: {
-    label: "Theme: light — switch to system",
+    label: "Theme: light — switch to dark",
     glyph: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
         <circle cx="12" cy="12" r="4" />
@@ -60,7 +51,7 @@ export const ThemeToggle = observer(function ThemeToggle() {
     <button
       type="button"
       {...stylex.props(styles.button)}
-      onClick={() => ui.cycleTheme()}
+      onClick={() => ui.toggleTheme()}
       title={icon.label}
       aria-label={icon.label}
     >

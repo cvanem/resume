@@ -3,13 +3,13 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { makeAutoObservable } from "mobx";
 
-export type ThemeChoice = "system" | "light" | "dark";
+export type ThemeChoice = "light" | "dark";
 
 const THEME_KEY = "cv-theme";
 
 /** Global UI state: theme choice, expanded timeline items, open project. */
 export class UIStore {
-  theme: ThemeChoice = "system";
+  theme: ThemeChoice = "dark";
   /** Set after mount so SSR markup never disagrees with the server. */
   hydrated = false;
   /** Entries start expanded (readable like a paper resume); users collapse. */
@@ -22,8 +22,13 @@ export class UIStore {
 
   hydrate() {
     const stored = typeof window !== "undefined" ? window.localStorage.getItem(THEME_KEY) : null;
-    if (stored === "light" || stored === "dark" || stored === "system") {
+    if (stored === "light" || stored === "dark") {
       this.theme = stored;
+    } else if (typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: light)").matches) {
+      // No saved choice yet — match the OS on first visit, then stay put.
+      this.theme = "light";
+    } else {
+      this.theme = "dark";
     }
     this.hydrated = true;
   }
@@ -33,10 +38,8 @@ export class UIStore {
     window.localStorage.setItem(THEME_KEY, theme);
   }
 
-  cycleTheme() {
-    // system -> dark -> light -> system
-    const next: Record<ThemeChoice, ThemeChoice> = { system: "dark", dark: "light", light: "system" };
-    this.setTheme(next[this.theme]);
+  toggleTheme() {
+    this.setTheme(this.theme === "dark" ? "light" : "dark");
   }
 
   toggleTimelineItem(id: string) {

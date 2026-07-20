@@ -21,13 +21,12 @@ const styles = stylex.create({
 
 /**
  * Applies the active theme class at the top of the tree.
- * Default (system) uses the media-query-aware token values, so first paint
- * is always correct; an explicit user choice overrides after hydration.
+ * Before hydration the media-query-aware token values drive first paint (so it
+ * matches the OS); after hydration an explicit light/dark choice takes over.
  */
 export const ThemeRoot = observer(function ThemeRoot({ children }: { children: ReactNode }) {
   const ui = useUIStore();
-  const explicit =
-    ui.hydrated && ui.theme !== "system" ? (ui.theme === "light" ? lightTheme : darkTheme) : null;
+  const explicit = ui.hydrated ? (ui.theme === "light" ? lightTheme : darkTheme) : null;
 
   return <div {...stylex.props(explicit, styles.root)}>{children}</div>;
 });
