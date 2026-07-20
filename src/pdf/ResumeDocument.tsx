@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   contactRow: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     gap: 8,
   },
