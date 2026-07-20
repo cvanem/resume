@@ -9,7 +9,10 @@ export interface Profile {
   name: string;
   title: string;
   tagline: string;
-  summary: string;
+  /** Emphasized value-proposition lead line. */
+  summaryLead: string;
+  /** Secondary detail, shown de-emphasized after the lead. */
+  summaryDetail: string;
   location: string;
   email: string;
   phone: string;
@@ -33,6 +36,7 @@ export interface TimelineItem {
   tech?: string[];
   link?: { label: string; href: string };
   note?: string; // non-clickable label, e.g. for private/internal tools
+  image?: { src: string; alt: string }; // optional screenshot shown in the expanded detail
   projectId?: string; // links to a featured project card
 }
 
@@ -64,6 +68,7 @@ export interface Project {
   tech: string[];
   links?: { label: string; href: string }[];
   note?: string; // non-clickable label, e.g. for private/internal tools
+  image?: { src: string; alt: string }; // optional screenshot
   metrics?: Stat[];
 }
 
@@ -76,11 +81,12 @@ export const profile: Profile = {
   name: "Chris Van Emmerik",
   title: "Senior Full Stack Engineer",
   tagline: "Two decades shipping product — from in-circuit forensics to real-time, AI-forward web platforms.",
-  summary:
-    "I build complete products: information architecture, backend, UI, and the unglamorous " +
-    "details in between — backed by a B.S. in Computer Engineering. I build AI-forward and lean " +
-    "on AI-assisted tooling across my workflow, and I care about speed, craft, and software that " +
-    "feels obvious to use.",
+  summaryLead:
+    "I build complete products — information architecture, backend, UI, and the unglamorous " +
+    "details in between.",
+  summaryDetail:
+    "Backed by a B.S. in Computer Engineering. I build AI-forward and lean on AI-assisted tooling " +
+    "across my workflow, and I care about speed, craft, and software that feels obvious to use.",
   location: "Longmont, CO • Lead, SD",
   email: "chris@greenlinkservices.com",
   phone: "720-818-0350",
@@ -113,10 +119,10 @@ export const eras: Era[] = [
         years: "2025 — Present",
         title: "ReceiptKit — Cloud-to-Thermal Printing Platform",
         summary:
-          "Co-founder and sole engineer of receiptkit.io — “receipt printing in 3 lines of code.” " +
-          "Design a receipt in a visual editor, then print to physical thermal " +
-          "printers from any web or cloud app via a simple JSON API. I architected and built the " +
-          "entire solution.",
+          "Co-founder and sole engineer of receiptkit.io, a commercial SaaS product — “receipt " +
+          "printing in 3 lines of code.” Design a receipt in a visual editor, then print to physical " +
+          "thermal printers from any web or cloud app via a simple JSON API. I architected and built " +
+          "the entire solution.",
         bullets: [
           "The problem: browsers and cloud servers can't reach thermal printers, which speak proprietary binary protocols over raw TCP/USB on the local network — and Star's own cloud paths (CloudPRNT polling, MQTT) can't print image receipts fast enough. Built the missing edge “bridge” that caches templates, renders locally, and pushes print data straight to the printer over USB/Ethernet — ~40ms locally, ~97ms over the cloud.",
           "Designed a “pseudo-SVG” template format for speed: an SVG template plus dynamic JSON transforms to an SVG image, then to printer binary. Both hops are extremely fast — the quickest render path I found for image-based receipts, not just text.",
@@ -164,6 +170,7 @@ export const eras: Era[] = [
         ],
         tech: ["Next.js", "TypeScript", "MySQL", "DynamoDB", "Stripe Terminal", "AWS IoT", "Algolia", "ShipEngine", "Vercel"],
         note: "Private / internal tool",
+        image: { src: "/screenshots/fh-pos.png", alt: "Family Hardware point-of-sale register — live cart, category browser, and tender panel" },
         projectId: "fh-admin",
       },
       {
@@ -291,13 +298,13 @@ export const projects: Project[] = [
     name: "ReceiptKit",
     client: "Co-founder / Software Architect · receiptkit.io",
     years: "2025 — Present",
-    kicker: "Real-time printing infrastructure",
+    kicker: "SaaS · Real-time printing infrastructure",
     description:
-      "Receipt printing in 3 lines of code. A cloud-to-thermal-printer platform: design a receipt " +
-      "in a visual editor, then print to physical Star Micronics printers from any web or cloud " +
-      "app via a JSON API. I co-founded it and architected and built the entire solution — web " +
-      "app, SDK, real-time transport, desktop and Raspberry Pi bridges, and the Rust rendering " +
-      "engine.",
+      "Receipt printing in 3 lines of code. A commercial SaaS cloud-to-thermal-printer platform: " +
+      "design a receipt in a visual editor, then print to physical Star Micronics printers from any " +
+      "web or cloud app via a JSON API. I co-founded it and architected and built the entire " +
+      "solution — web app, SDK, real-time transport, desktop and Raspberry Pi bridges, and the Rust " +
+      "rendering engine.",
     highlights: [
       "The core problem: browsers and cloud servers can't talk to thermal printers, which speak proprietary binary protocols over raw TCP/USB on the local network. ReceiptKit is the bridge — a visual template editor and a session.print({ data }) SDK on top, hiding all the rendering, binary-protocol, real-time-transport, and printer-status complexity underneath.",
       "A visual, drag-and-drop SVG template editor: dynamic, data-bound elements and fields that render live against real order data — so anyone can design a receipt and developers just pass the JSON.",
@@ -363,6 +370,7 @@ export const projects: Project[] = [
     ],
     tech: ["Next.js", "TypeScript", "MySQL", "DynamoDB", "Stripe Terminal", "AWS IoT MQTT", "Algolia", "ShipEngine", "PostGrid", "Anthropic API", "S3", "Vercel"],
     note: "Private / internal tool",
+    image: { src: "/screenshots/fh-pos.png", alt: "Family Hardware point-of-sale register — live cart, category browser, and tender panel" },
     metrics: [
       { value: "Cash · Card · Invoice", label: "tender workflows" },
       { value: "2+1", label: "locations + web" },

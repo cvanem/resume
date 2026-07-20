@@ -86,11 +86,20 @@ const styles = stylex.create({
     color: colors.accentText,
     marginBottom: 20,
   },
-  summary: {
-    fontSize: { default: 16, "@media (min-width: 768px)": 17 },
-    lineHeight: 1.65,
+  summaryLead: {
+    fontSize: { default: 18, "@media (min-width: 768px)": 21 },
+    fontWeight: 500,
+    letterSpacing: "-0.01em",
+    lineHeight: 1.5,
+    color: colors.text,
+    maxWidth: 640,
+    marginBottom: 12,
+  },
+  summaryDetail: {
+    fontSize: 15,
+    lineHeight: 1.6,
     color: colors.textSecondary,
-    maxWidth: 660,
+    maxWidth: 620,
   },
 });
 
@@ -108,7 +117,8 @@ export function Hero() {
         </div>
         <h1 {...stylex.props(styles.name, styles.animated(80))}>{profile.name}</h1>
         <p {...stylex.props(styles.title, styles.animated(160))}>{profile.title}</p>
-        <p {...stylex.props(styles.summary, styles.animated(240))}>{profile.summary}</p>
+        <p {...stylex.props(styles.summaryLead, styles.animated(240))}>{profile.summaryLead}</p>
+        <p {...stylex.props(styles.summaryDetail, styles.animated(300))}>{profile.summaryDetail}</p>
       </div>
     </div>
   );

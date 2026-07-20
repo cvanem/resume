@@ -85,6 +85,10 @@ const styles = StyleSheet.create({
     marginTop: 9,
     color: SECONDARY,
   },
+  summaryLead: {
+    fontFamily: "Helvetica-Bold",
+    color: TEXT,
+  },
   section: {
     marginTop: 12,
   },
@@ -357,7 +361,10 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
         <View style={styles.headerRule} />
         <Contact />
         <View style={styles.headerRule} />
-        <Text style={styles.summary}>{profile.summary}</Text>
+        <Text style={styles.summary}>
+          <Text style={styles.summaryLead}>{profile.summaryLead} </Text>
+          {profile.summaryDetail}
+        </Text>
 
         {/* Experience */}
         <View style={styles.section}>

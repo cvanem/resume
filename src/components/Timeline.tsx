@@ -232,6 +232,16 @@ const styles = stylex.create({
     flexWrap: "wrap",
     gap: 6,
   },
+  screenshot: {
+    display: "block",
+    width: "100%",
+    height: "auto",
+    marginTop: 16,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderStyle: "solid",
+    borderColor: colors.border,
+  },
   itemLink: {
     display: "inline-flex",
     alignItems: "center",
@@ -300,6 +310,10 @@ const TimelineEntry = observer(function TimelineEntry({ item }: { item: Timeline
                   <Chip key={tech} label={tech} />
                 ))}
               </div>
+            ) : null}
+            {item.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={item.image.src} alt={item.image.alt} {...stylex.props(styles.screenshot)} />
             ) : null}
             {item.link ? (
               <a
