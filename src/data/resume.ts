@@ -464,7 +464,7 @@ export const projects: Project[] = [
 export const skillGroups: SkillGroup[] = [
   {
     label: "Frontend",
-    skills: ["React", "Next.js", "TypeScript", "MobX", "Redux", "StyleX", "Material UI", "InstantSearch", "PWA / offline-first"],
+    skills: ["React", "Next.js", "TypeScript", "Redux", "Material UI", "InstantSearch", "PWA / offline-first"],
   },
   {
     label: "Backend & Data",
