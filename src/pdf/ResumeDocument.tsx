@@ -44,30 +44,19 @@ const styles = StyleSheet.create({
   contactBlock: {
     marginTop: 10,
   },
-  contactCols: {
+  contactRow: {
     flexDirection: "row",
-    alignItems: "flex-start",
-  },
-  // Left and right columns share equal width (flex:1), which keeps the center
-  // column pinned to the page center — aligned under the centered title.
-  colLeft: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
-    gap: 6,
-    alignItems: "flex-start",
-  },
-  colCenter: {
-    flexShrink: 0,
-    gap: 6,
+    justifyContent: "center",
     alignItems: "center",
+    gap: 8,
   },
-  colRight: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
-    gap: 6,
-    alignItems: "flex-end",
+  contactRow2: {
+    marginTop: 6,
+  },
+  sep: {
+    fontSize: 8,
+    color: "#c2c6cf",
+    lineHeight: 1,
   },
   contactEntry: {
     flexDirection: "row",
@@ -345,23 +334,41 @@ function ContactEntry({
   );
 }
 
+type Entry = { icon: keyof typeof ICONS; label: string; value: string; href?: string };
+
+function ContactLine({ items, second }: { items: Entry[]; second?: boolean }) {
+  const nodes: ReactNode[] = [];
+  items.forEach((it, i) => {
+    if (i > 0) {
+      nodes.push(
+        <Text key={`sep-${i}`} style={styles.sep}>
+          |
+        </Text>,
+      );
+    }
+    nodes.push(<ContactEntry key={it.label} {...it} />);
+  });
+  return <View style={second ? [styles.contactRow, styles.contactRow2] : styles.contactRow}>{nodes}</View>;
+}
+
 function Contact() {
   return (
     <View style={styles.contactBlock}>
-      <View style={styles.contactCols}>
-        <View style={styles.colLeft}>
-          <ContactEntry icon="pin" label="Location" value={profile.location} />
-          <ContactEntry icon="globe" label="Live Resume" value={displayUrl(profile.website)} href={profile.website} />
-        </View>
-        <View style={styles.colCenter}>
-          <ContactEntry icon="mail" label="Email" value={profile.email} href={`mailto:${profile.email}`} />
-          <ContactEntry icon="upwork" label="Upwork" value={displayUrl(profile.upwork)} href={profile.upwork} />
-        </View>
-        <View style={styles.colRight}>
-          <ContactEntry icon="phone" label="Phone" value={profile.phone} href={`tel:${profile.phone}`} />
-          <ContactEntry icon="github" label="GitHub" value={displayUrl(profile.github)} href={profile.github} />
-        </View>
-      </View>
+      <ContactLine
+        items={[
+          { icon: "pin", label: "Location", value: profile.location },
+          { icon: "mail", label: "Email", value: profile.email, href: `mailto:${profile.email}` },
+          { icon: "phone", label: "Phone", value: profile.phone, href: `tel:${profile.phone}` },
+        ]}
+      />
+      <ContactLine
+        second
+        items={[
+          { icon: "globe", label: "Live Resume", value: displayUrl(profile.website), href: profile.website },
+          { icon: "upwork", label: "Upwork", value: displayUrl(profile.upwork), href: profile.upwork },
+          { icon: "github", label: "GitHub", value: displayUrl(profile.github), href: profile.github },
+        ]}
+      />
     </View>
   );
 }
