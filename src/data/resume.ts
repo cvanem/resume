@@ -100,7 +100,7 @@ export const eras: Era[] = [
     id: "freelance",
     period: "2017 — Present",
     role: "Owner & Full Stack Software Engineer",
-    org: "Greenlink Services LLC · Single Member Software Consultancy",
+    org: "Greenlink Services LLC · Development and Consultancy",
     location: "Longmont, CO • Lead, SD",
     employmentType: "Independent · Contract",
     blurb: [
