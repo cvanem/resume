@@ -4,6 +4,7 @@ import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 import { UIStoreProvider } from "@/stores/ui-store";
 import { ThemeRoot } from "./ThemeRoot";
+import { WarmResume } from "@/components/WarmResume";
 import { profile } from "@/data/resume";
 
 export const metadata: Metadata = {
@@ -34,6 +35,7 @@ export default function RootLayout({
         <UIStoreProvider>
           <ThemeRoot>{children}</ThemeRoot>
         </UIStoreProvider>
+        <WarmResume />
       </body>
     </html>
   );
