@@ -180,7 +180,7 @@ export const eras: Era[] = [
           "Designed, built, and maintain the full online storefront for a two-location Florida " +
           "retailer with 150,000+ SKUs.",
         bullets: [
-          "Full commerce stack: Stripe + PayPal checkout, subscriptions, dynamic tax, multi-warehouse ShipEngine/FedEx live rating, in-store pickup, returns with prepaid labels, plus customer accounts with order history, tracking, and authentication.",
+          "Full commerce stack: Stripe + PayPal checkout, subscriptions, dynamic tax, multi-warehouse ShipEngine/FedEx live rating, in-store pickup, returns with prepaid labels, and customer accounts with order history, tracking, and authentication.",
           "Faceted catalog search across 150,000+ SKUs with Algolia InstantSearch, surfacing live per-store inventory and pricing from MySQL.",
           "Built the analytics layer end to end — instrumented the full e-commerce funnel from add-to-cart through purchase and conversion across GA4, Google Ads, Bing UET, Facebook Pixel, and Algolia, with enhanced conversions and per-item category dimensions.",
           "Operational monitoring and alerting on Axiom server logs — a standardized error-handling layer across 100+ API routes emails the team the instant a checkout, payment, or fulfillment error fires, with request-ID correlation for fast triage.",
@@ -197,7 +197,7 @@ export const eras: Era[] = [
         summary:
           "Architected and built the software that runs the whole business day to day — point of " +
           "sale, accounts receivable, inventory, purchasing, fulfillment, and reporting across two " +
-          "stores plus online — unifying the owner's existing databases and a dozen third-party " +
+          "stores plus online — unifying the owner's existing databases and third-party " +
           "services behind one interface.",
         bullets: [
           "The point-of-sale register — the highest-stakes screen in the business: a live cart driven by scan-to-add SKU input with fast item find, line-item discounts and price adjustments. Checkout via cash, credit-card, customer invoice, gift card, and split tender payments, along with receipt integration, refunds, and return processing — all reconciled through Stripe and the owner's backend databases.",
@@ -226,7 +226,7 @@ export const eras: Era[] = [
           "Wrote serverless CORS proxies (AWS Lambda, plus a GCP twin) wrapping the Apple App Store and Google Play scrapers — normalizing and whitelisting fields and adding CORS headers so the browser app pulls live store metadata (icons, screenshots, install counts, in-app-purchase and pricing flags) directly, in multiple languages.",
           "Designed the DynamoDB data architecture behind the ratings: an append-only, versioned store where every rating is an immutable record — linked to its app by a groupId and to the revision it came from by a parent pointer — so one app accrues many ratings over time, each moving through a draft-then-approved workflow with the full history preserved. The public sees only the newest approved rating per app (resolved by grouping on groupId and taking the most recent approved record); raters and admins work against the whole chain.",
           "Built a virtualized app catalog that stays fast at scale — a windowed list (react-virtualized) with dynamic row measurement renders only the visible rows, so faceted filtering and fuzzy search across the full 600+ app catalog stay smooth and instant.",
-          "Built an automated longitudinal-survey reminder system on AWS Lambda and SES: a scheduled job scans the survey tables, determines when each participant's next follow-up is due (Initial, then 2-week, then 6-week), and emails a deep-linked survey — idempotently, recording what's been sent so no one is emailed twice or after they've already responded.",
+          "Built an automated survey reminder system on AWS Lambda and SES: a scheduled job scans the survey tables, determines when each participant's next follow-up is due (Initial, then 2-week, then 6-week), and emails a deep-linked survey — idempotently, recording what's been sent so no one is emailed twice or after they've already responded.",
           "Delivered it as an installable PWA with usage logged to a dedicated DynamoDB tracking table, giving the team real-world engagement analytics.",
           "Used by clinicians and patients worldwide to find safe, effective mental-health apps.",
         ],
@@ -426,7 +426,7 @@ export const projects: Project[] = [
     description:
       "The custom software that runs the entire business day to day: point of sale, inventory, " +
       "purchasing, accounts receivable, fulfillment, and reporting across two stores plus online — " +
-      "tying the owner's existing data together with a dozen third-party integrations behind a " +
+      "tying the owner's existing data together with third-party integrations behind a " +
       "single interface.",
     highlights: [
       "The point-of-sale register — the highest-stakes screen in the business: a live cart driven by a scan-to-add SKU input, with fast item find.",
@@ -464,7 +464,7 @@ export const projects: Project[] = [
       "Wrote serverless CORS proxies (AWS Lambda, with a GCP twin) that wrap the Apple App Store and Google Play scrapers — normalizing/whitelisting fields and injecting CORS headers so the browser SPA pulls live store metadata (icons, screenshots, installs, IAP and pricing flags) directly, across languages.",
       "Designed the DynamoDB data architecture behind the ratings: an append-only, versioned store where every rating is an immutable record — linked to its app by a groupId and to the revision it was derived from by a parent pointer. One app can carry many ratings over time, each moving through a draft → approved workflow; nothing is ever overwritten or deleted, so the complete rating history is preserved. The public sees only the most-recently-approved rating per app (resolved by grouping on groupId and taking the newest approved record), while raters and admins work against the whole chain.",
       "Virtualized app catalog for speed: a windowed list and grid (react-virtualized + react-virtuoso) with dynamic row measurement render only what's on screen, keeping faceted filtering and fuzzy search across the full 600+ app catalog smooth and instant.",
-      "Automated longitudinal-survey reminders on AWS Lambda + SES: a scheduled job scans the survey tables, works out when each participant's next follow-up is due (Initial → 2-week → 6-week), and emails a deep-linked survey — idempotently, tracking what's been sent so no one is emailed twice or after they've already responded.",
+      "Automated survey reminders on AWS Lambda + SES: a scheduled job scans the survey tables, works out when each participant's next follow-up is due (Initial → 2-week → 6-week), and emails a deep-linked survey — idempotently, tracking what's been sent so no one is emailed twice or after they've already responded.",
       "Installable PWA with usage logged to a dedicated DynamoDB tracking table for real-world engagement analytics.",
       "Long-term engagement: built it, shipped it, and have kept it running and evolving ever since.",
     ],
