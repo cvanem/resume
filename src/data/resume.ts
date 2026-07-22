@@ -129,6 +129,34 @@ const greenlinkShots = [
   },
 ];
 
+/** ReceiptKit product screenshots, shared by the timeline item and project card. */
+const receiptKitShots = [
+  {
+    src: "/screenshots/receiptkit/dashboard.webp",
+    alt: "Customer dashboard overview — bridges online, prints today with day-over-day trend, average print latency over the last 7 days, and a live print-jobs feed.",
+  },
+  {
+    src: "/screenshots/receiptkit/template-designer.webp",
+    alt: "Visual drag-and-drop template designer — data-bound receipt elements on an SVG canvas, rendered live against real order data.",
+  },
+  {
+    src: "/screenshots/receiptkit/template-print-preview.webp",
+    alt: "Template print preview — the designed receipt rendered as it prints on a physical Star Micronics thermal printer.",
+  },
+  {
+    src: "/screenshots/receiptkit/bridge-overview.webp",
+    alt: "Edge bridge overview — the local desktop/Raspberry Pi bridge showing connection status, connected printers, and live activity.",
+  },
+  {
+    src: "/screenshots/receiptkit/bridge-print-history.webp",
+    alt: "Bridge print history — a local log of recent print jobs processed by the bridge, with status and timestamps.",
+  },
+  {
+    src: "/screenshots/receiptkit/bridge-printers.webp",
+    alt: "Bridge printers view — discovered Star Micronics printers with live hardware status (paper, cover, errors) reported over MQTT.",
+  },
+];
+
 export const eras: Era[] = [
   {
     id: "freelance",
@@ -174,6 +202,7 @@ export const eras: Era[] = [
           "Three AI authoring paths with Claude: generate a template from a text prompt, refine an existing one through incremental AI edits, or photograph a paper receipt and get an editable template back via vision — all SSE-streamed.",
         ],
         tech: ["Next.js 16", "React 19", "TypeScript", "Rust", "Tauri", "AWS IoT MQTT", "Supabase", "Stripe", "Anthropic API", "Vercel"],
+        images: receiptKitShots,
         link: { label: "receiptkit.io", href: "https://receiptkit.io" },
         projectId: "receiptkit",
       },
@@ -392,32 +421,7 @@ export const projects: Project[] = [
     ],
     tech: ["Next.js 16", "React 19", "TypeScript", "Rust", "Tauri 2", "AWS IoT MQTT", "Supabase", "Stripe", "Anthropic API", "Vercel"],
     links: [{ label: "receiptkit.io", href: "https://receiptkit.io" }],
-    images: [
-      {
-        src: "/screenshots/receiptkit/dashboard.webp",
-        alt: "Customer dashboard overview — bridges online, prints today with day-over-day trend, average print latency over the last 7 days, and a live print-jobs feed.",
-      },
-      {
-        src: "/screenshots/receiptkit/template-designer.webp",
-        alt: "Visual drag-and-drop template designer — data-bound receipt elements on an SVG canvas, rendered live against real order data.",
-      },
-      {
-        src: "/screenshots/receiptkit/template-print-preview.webp",
-        alt: "Template print preview — the designed receipt rendered as it prints on a physical Star Micronics thermal printer.",
-      },
-      {
-        src: "/screenshots/receiptkit/bridge-overview.webp",
-        alt: "Edge bridge overview — the local desktop/Raspberry Pi bridge showing connection status, connected printers, and live activity.",
-      },
-      {
-        src: "/screenshots/receiptkit/bridge-print-history.webp",
-        alt: "Bridge print history — a local log of recent print jobs processed by the bridge, with status and timestamps.",
-      },
-      {
-        src: "/screenshots/receiptkit/bridge-printers.webp",
-        alt: "Bridge printers view — discovered Star Micronics printers with live hardware status (paper, cover, errors) reported over MQTT.",
-      },
-    ],
+    images: receiptKitShots,
     metrics: [
       { value: "~50x", label: "faster render (600→12ms)" },
       { value: "<100ms", label: "cloud-to-print" },
