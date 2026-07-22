@@ -5,6 +5,7 @@ import { observer } from "mobx-react-lite";
 import { colors, fonts } from "@/theme/tokens.stylex";
 import { eras, type Era, type TimelineItem } from "@/data/resume";
 import { useUIStore } from "@/stores/ui-store";
+import { Carousel } from "./Carousel";
 import { Chip } from "./Chip";
 import { Reveal } from "./Reveal";
 
@@ -311,7 +312,9 @@ const TimelineEntry = observer(function TimelineEntry({ item }: { item: Timeline
                 ))}
               </div>
             ) : null}
-            {item.image ? (
+            {item.images?.length ? (
+              <Carousel images={item.images} label={`${item.title} screenshots`} />
+            ) : item.image ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={item.image.src} alt={item.image.alt} {...stylex.props(styles.screenshot)} />
             ) : null}

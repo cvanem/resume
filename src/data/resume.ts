@@ -36,7 +36,8 @@ export interface TimelineItem {
   tech?: string[];
   link?: { label: string; href: string };
   note?: string; // non-clickable label, e.g. for private/internal tools
-  image?: { src: string; alt: string }; // optional screenshot shown in the expanded detail
+  image?: { src: string; alt: string }; // optional single screenshot shown in the expanded detail
+  images?: { src: string; alt: string }[]; // optional screenshot gallery, rendered as a carousel
   projectId?: string; // links to a featured project card
 }
 
@@ -69,6 +70,7 @@ export interface Project {
   links?: { label: string; href: string }[];
   note?: string; // non-clickable label, e.g. for private/internal tools
   image?: { src: string; alt: string }; // optional screenshot
+  images?: { src: string; alt: string }[]; // optional screenshot gallery, rendered as a carousel
   metrics?: Stat[];
 }
 
@@ -94,6 +96,38 @@ export const profile: Profile = {
   upwork: "https://www.upwork.com/freelancers/chrisvanemmerik",
   website: "https://www.greenlinkservices.com",
 };
+
+/** Greenlink product screenshots, shared by the timeline item and project card. */
+const greenlinkShots = [
+  {
+    src: "/screenshots/greenlink/register.webp",
+    alt: "Point-of-sale register — scan-to-add live cart, category-filtered inventory, and an age/ID-verified customer.",
+  },
+  {
+    src: "/screenshots/greenlink/receipt.webp",
+    alt: "Completed sale with an itemized Colorado cannabis tax breakdown — city, county, state recreational, and cannabis excise — plus tender and change.",
+  },
+  {
+    src: "/screenshots/greenlink/inventory.webp",
+    alt: "Multi-location inventory with METRC package IDs, category filters, and live per-store quantities.",
+  },
+  {
+    src: "/screenshots/greenlink/products.webp",
+    alt: "Product catalog management across suppliers, strains, categories, and compliance types.",
+  },
+  {
+    src: "/screenshots/greenlink/devices.webp",
+    alt: "Device management — registers, cash drawers, and check-in stations configured per retail location.",
+  },
+  {
+    src: "/screenshots/greenlink/device-edit.webp",
+    alt: "Per-device configuration: device type, location, access mode, and authorized users.",
+  },
+  {
+    src: "/screenshots/greenlink/architecture.webp",
+    alt: "Offline-first Redux architecture in Redux DevTools — background DATABASE_SEND/RECEIVE_TRANSACTIONS sync alongside SignalR, Firebase, scanner, and printer state slices.",
+  },
+];
 
 export const eras: Era[] = [
   {
@@ -145,8 +179,11 @@ export const eras: Era[] = [
         bullets: [
           "Full commerce stack: Stripe + PayPal checkout, subscriptions, dynamic tax, multi-warehouse ShipEngine/FedEx live rating, in-store pickup, returns with prepaid labels.",
           "Faceted catalog search across 150,000+ SKUs with Algolia InstantSearch, surfacing live per-store inventory and pricing from MySQL.",
-          "Static generation at scale — pre-generated category/product pages, virtualized product grids, AVIF/WebP image pipeline.",
+          "Static generation at scale — pre-generated category/product pages and virtualized product grids across a 150,000-SKU catalog.",
           "Customer accounts, order history and tracking, and authentication.",
+          "Instrumented the full e-commerce funnel — add-to-cart through purchase and conversion — across GA4, Google Ads, Bing UET, Facebook Pixel, and Algolia, with enhanced conversions and per-item category dimensions.",
+          "Operational monitoring and alerting on Axiom server logs — a standardized error-handling layer across 100+ API routes emails the team the instant a checkout, payment, or fulfillment error fires, with request-ID correlation for fast triage.",
+          "Selective LogRocket session replay on the checkout and order-confirmation screens, with client-side errors and analytics failures bridged back to server logs to diagnose browser-side incidents end to end.",
         ],
         tech: ["Next.js", "React 19", "TypeScript", "Algolia", "Stripe", "PayPal", "MySQL", "Vercel"],
         link: { label: "familyhardware.com", href: "https://www.familyhardware.com" },
@@ -189,6 +226,28 @@ export const eras: Era[] = [
         tech: ["React", "TypeScript", "Web scraping"],
         link: { label: "mindapps.org", href: "https://mindapps.org" },
         projectId: "mind",
+      },
+      {
+        id: "greenlink",
+        years: "2017 — 2019",
+        title: "Greenlink — Cannabis POS, Inventory & Compliance Platform",
+        summary:
+          "Co-founder and architect of a hybrid, offline-first point-of-sale, inventory, and " +
+          "compliance platform for the regulated cannabis industry — one React codebase shared " +
+          "across web and native mobile.",
+        bullets: [
+          "Co-founded the product and designed the cloud architecture from the ground up: a single React/Redux codebase that ships as an offline-first PWA and, through Cordova, as native iOS and Android apps — one source base across web and mobile.",
+          "Built the point-of-sale register end to end — a scan-to-add live cart, an age/ID-verified customer queue, cash and card tenders, and Colorado cannabis tax computation (city, county, state recreational, and cannabis excise) itemized to the cent on every receipt.",
+          "Architected offline-first data sync: a background transaction queue reconciles local state with the server so registers keep selling through network drops, with SignalR pushing live updates across devices the moment connectivity returns.",
+          "Integrated METRC — Colorado's state seed-to-sale compliance system — for package tracking and regulated reporting across multiple retail locations.",
+          "Drove in-store hardware directly from dedicated state slices: Star Micronics receipt and label printers and Socket Mobile barcode scanners.",
+          "Modeled the whole business: multi-location inventory, product/strain/supplier catalogs, per-device register and cash-drawer setup, user roles, and subscription billing.",
+          "Owned deployment and scale — Dockerized .NET Core services over PostgreSQL, plus the release process and scaling plan.",
+        ],
+        tech: ["React", "Redux", "Material UI", "SignalR", ".NET Core", "PostgreSQL", "Docker", "Cordova", "Firebase", "PWA / offline-first", "METRC"],
+        note: "Site no longer active",
+        images: greenlinkShots,
+        projectId: "greenlink",
       },
     ],
   },
@@ -397,6 +456,34 @@ export const projects: Project[] = [
     metrics: [
       { value: "600+", label: "apps evaluated" },
       { value: "105", label: "evaluation criteria" },
+    ],
+  },
+  {
+    id: "greenlink",
+    name: "Greenlink",
+    client: "Co-founder / Architect · Cannabis POS & compliance",
+    years: "2017 — 2019",
+    kicker: "Regulated-industry POS",
+    description:
+      "A hybrid, offline-first point-of-sale, inventory, and compliance platform for the regulated " +
+      "cannabis industry. I co-founded it and designed the cloud architecture from the ground up — " +
+      "a single React codebase shared across an offline-first web app and native iOS and Android.",
+    highlights: [
+      "One React/Redux codebase, three targets: an offline-first PWA on the web and native iOS/Android through Cordova — sharing a single source base so features shipped everywhere at once.",
+      "Point-of-sale register built end to end: scan-to-add live cart, age/ID-verified customer queue, cash and card tenders, and Colorado cannabis tax (city, county, state recreational, and cannabis excise) computed to the cent on every receipt.",
+      "Offline-first by design — a background transaction queue reconciles local and server state so registers keep selling through network drops, with SignalR pushing live cross-device updates the moment connectivity returns.",
+      "METRC integration for Colorado's state seed-to-sale compliance: package tracking and regulated reporting across multiple retail locations.",
+      "Direct in-store hardware integration — Star Micronics receipt/label printers and Socket Mobile scanners — driven from dedicated Redux state slices.",
+      "Full business model: multi-location inventory, product/strain/supplier catalogs, per-device register and cash-drawer configuration, user roles, and subscription billing.",
+      "Owned deployment and scalability — Dockerized .NET Core services over PostgreSQL, plus the release process and scaling plan.",
+    ],
+    tech: ["React", "Redux", "Material UI", "SignalR", ".NET Core", "PostgreSQL", "Docker", "Cordova", "Firebase", "PWA / offline-first", "METRC"],
+    note: "Site no longer active",
+    images: greenlinkShots,
+    metrics: [
+      { value: "Web + Native", label: "one shared React codebase" },
+      { value: "Offline-first", label: "background sync + live updates" },
+      { value: "METRC", label: "state compliance built in" },
     ],
   },
   {

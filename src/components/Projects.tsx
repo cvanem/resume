@@ -6,6 +6,7 @@ import { useEffect, useRef } from "react";
 import { colors, fonts } from "@/theme/tokens.stylex";
 import { projects, type Project } from "@/data/resume";
 import { useUIStore } from "@/stores/ui-store";
+import { Carousel } from "./Carousel";
 import { Chip } from "./Chip";
 import { Reveal } from "./Reveal";
 
@@ -146,6 +147,9 @@ const styles = stylex.create({
     color: colors.textSecondary,
     marginBottom: 20,
   },
+  dialogGallery: {
+    marginBottom: 22,
+  },
   highlights: {
     display: "flex",
     flexDirection: "column",
@@ -249,6 +253,11 @@ const ProjectDialog = observer(function ProjectDialog() {
           </div>
           <p {...stylex.props(styles.dialogYears)}>{project.years}</p>
           <p {...stylex.props(styles.dialogDescription)}>{project.description}</p>
+          {project.images?.length ? (
+            <div {...stylex.props(styles.dialogGallery)}>
+              <Carousel images={project.images} label={`${project.name} screenshots`} />
+            </div>
+          ) : null}
           <ul {...stylex.props(styles.highlights)}>
             {project.highlights.map((highlight) => (
               <li key={highlight} {...stylex.props(styles.highlight)}>
