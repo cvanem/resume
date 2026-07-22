@@ -196,8 +196,7 @@ export const eras: Era[] = [
           "point of sale, accounts receivable, inventory, purchasing, fulfillment, and reporting " +
           "across two stores plus online.",
         bullets: [
-          "The point-of-sale register — the highest-stakes screen in the business: a live cart driven by a scan-to-add SKU input, with fast item find.",
-          "Cart engine handling line-item discounts, price adjustments, and return processing, with checkout for cash, credit-card, and on-account invoice tenders — all reconciled through Stripe and the owner's backend databases.",
+          "The point-of-sale register — the highest-stakes screen in the business: a live cart driven by scan-to-add SKU input with fast item find, line-item discounts and price adjustments, and checkout across cash, credit-card, on-account invoice, gift-card, and split-tender payments — with receipt integration, refunds, and return processing, all reconciled through Stripe and the owner's backend databases.",
           "Designed the discount engine from scratch: stacking rules, item- and order-level promotions, and the edge cases that have to stay correct to the cent.",
           "Full refund workflows across credit card and cash, including partial returns and split tenders, with per-line-item tracking that caps refundable quantities and prevents over-refunding before anything reaches Stripe.",
           "In-person payments via Stripe Terminal, receipt printing over Star CloudPRNT plus a custom local print bridge, and real-time register/device messaging over AWS IoT MQTT.",
