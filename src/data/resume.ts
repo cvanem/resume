@@ -405,6 +405,18 @@ export const projects: Project[] = [
         src: "/screenshots/receiptkit/template-print-preview.webp",
         alt: "Template print preview — the designed receipt rendered as it prints on a physical Star Micronics thermal printer.",
       },
+      {
+        src: "/screenshots/receiptkit/bridge-overview.webp",
+        alt: "Edge bridge overview — the local desktop/Raspberry Pi bridge showing connection status, connected printers, and live activity.",
+      },
+      {
+        src: "/screenshots/receiptkit/bridge-print-history.webp",
+        alt: "Bridge print history — a local log of recent print jobs processed by the bridge, with status and timestamps.",
+      },
+      {
+        src: "/screenshots/receiptkit/bridge-printers.webp",
+        alt: "Bridge printers view — discovered Star Micronics printers with live hardware status (paper, cover, errors) reported over MQTT.",
+      },
     ],
     metrics: [
       { value: "~50x", label: "faster render (600→12ms)" },
