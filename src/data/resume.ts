@@ -215,12 +215,12 @@ export const eras: Era[] = [
       {
         id: "mind",
         years: "2019 — Present", // TODO(chris): confirm start year
-        title: "MIND — mindapps.org",
+        title: "MIND — Mobile Health Index and Navigation Database",
         summary:
           "App-evaluation platform for the Division of Digital Psychiatry at Beth Israel " +
           "Deaconess Medical Center, a Harvard Medical School teaching hospital.",
         bullets: [
-          "Created and maintain the public React platform behind MIND (M-Health Index & Navigation Database).",
+          "Created and maintain the public React platform behind MIND.",
           "600+ mental-health apps evaluated against 105 objective criteria from the American Psychiatric Association's evaluation framework.",
           "Built the data pipeline: scrapes app metadata from the Apple App Store and Google Play, merges it with human rater reviews, and runs it through an approval workflow that governs how ratings are published and kept current.",
           "Used by clinicians and patients worldwide to find safe, effective mental-health apps.",
@@ -444,12 +444,12 @@ export const projects: Project[] = [
   },
   {
     id: "mind",
-    name: "MIND · mindapps.org",
+    name: "MIND — Mobile Health Index and Navigation Database",
     client: "Beth Israel Deaconess Medical Center",
     years: "2019 — Present",
     kicker: "Digital health, Harvard Medical School",
     description:
-      "The M-Health Index & Navigation Database for the Division of Digital Psychiatry at Beth " +
+      "The Mobile Health Index and Navigation Database for the Division of Digital Psychiatry at Beth " +
       "Israel Deaconess Medical Center, a Harvard Medical School teaching hospital. The largest " +
       "database of evaluated mental-health apps, used by clinicians and patients worldwide.",
     highlights: [
