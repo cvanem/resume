@@ -142,7 +142,7 @@ export const eras: Era[] = [
         "deployment, and years of ongoing operation. AI-assisted tooling runs throughout my " +
         "workflow — rapid prototyping, code review, testing — so more time goes to the architecture " +
         "and UX decisions that matter.",
-      "I take on clients through direct contract or via Upwork, where I've earned $300k+ across " +
+      "I work with clients through direct contract or via Upwork, where I've earned $300k+ across " +
         "3,800+ hours logged for 30+ clients with a 100% job success score.",
     ],
     itemsLabel: "Noteworthy Projects",
