@@ -250,9 +250,10 @@ export const eras: Era[] = [
           "Built the point-of-sale register end to end — a scan-to-add live cart, an age/ID-verified customer queue, cash and card tenders, and Colorado cannabis tax computation (city, county, state recreational, and cannabis excise) itemized to the cent on every receipt.",
           "Architected offline-first data sync: a background transaction queue reconciles local state with the server so registers keep selling through network drops, with SignalR pushing live updates across devices the moment connectivity returns.",
           "Integrated METRC — Colorado's state seed-to-sale compliance system — for package tracking and regulated reporting across multiple retail locations.",
-          "Direct integration with native peripherals, including Star Micronics printers and Socket Mobile scanners.",          "Owned deployment and scale — Dockerized .NET Core services with PostgreSQL, plus the release process and scaling plan.",
+          "Direct integration with native peripherals, including Star Micronics printers and Socket Mobile scanners.",
+          "Owned deployment and scale — Dockerized .NET Core services with PostgreSQL, deployed to a Kubernetes cluster on Google Cloud Platform, plus the release process and scaling plan.",
         ],
-        tech: ["React", "Redux", "Material UI", "SignalR", ".NET Core", "PostgreSQL", "Docker", "Cordova", "PWA / offline-first"],
+        tech: ["React", "Redux", "Material UI", "SignalR", ".NET Core", "PostgreSQL", "Docker", "Kubernetes", "GCP", "Cordova", "PWA / offline-first"],
         note: "Site no longer active",
         images: greenlinkShots,
         projectId: "greenlink",
@@ -492,9 +493,10 @@ export const projects: Project[] = [
       "Point-of-sale register built end to end: scan-to-add live cart, age/ID-verified customer queue, cash and card tenders, and Colorado cannabis tax (city, county, state recreational, and cannabis excise) computed to the cent on every receipt.",
       "Offline-first by design — a background transaction queue reconciles local and server state so registers keep selling through network drops, with SignalR pushing live cross-device updates the moment connectivity returns.",
       "METRC integration for Colorado's state seed-to-sale compliance: package tracking and regulated reporting across multiple retail locations.",
-      "Direct integration with native peripherals, including Star Micronics printers and Socket Mobile scanners.",      "Owned deployment and scalability — Dockerized .NET Core services with PostgreSQL, plus the release process and scaling plan.",
+      "Direct integration with native peripherals, including Star Micronics printers and Socket Mobile scanners.",
+      "Owned deployment and scalability — Dockerized .NET Core services with PostgreSQL, deployed to a Kubernetes cluster on Google Cloud Platform, plus the release process and scaling plan.",
     ],
-    tech: ["React", "Redux", "Material UI", "SignalR", ".NET Core", "PostgreSQL", "Docker", "Cordova", "PWA / offline-first"],
+    tech: ["React", "Redux", "Material UI", "SignalR", ".NET Core", "PostgreSQL", "Docker", "Kubernetes", "GCP", "Cordova", "PWA / offline-first"],
     note: "Site no longer active",
     images: greenlinkShots,
     metrics: [
@@ -593,7 +595,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: "Cloud & Infra",
-    skills: ["Vercel", "AWS (Lambda, S3, IoT Core, DynamoDB, Cognito)", "Docker", "CI/CD", "Cron / background jobs", "Observability"],
+    skills: ["Vercel", "AWS (Lambda, S3, IoT Core, DynamoDB, Cognito)", "Google Cloud Platform", "Kubernetes", "Docker", "CI/CD", "Cron / background jobs", "Observability"],
   },
   {
     label: "Commerce & Integrations",
@@ -622,7 +624,7 @@ export const coreSkills: SkillGroup[] = [
   },
   {
     label: "Platform & Ops",
-    skills: ["Vercel, AWS & Docker", "CI/CD", "Observability & alerting", "Cron / scheduled jobs"],
+    skills: ["Vercel, AWS & GCP", "Kubernetes & Docker", "CI/CD", "Observability & alerting", "Cron / scheduled jobs"],
   },
   {
     label: "Systems & Hardware",
