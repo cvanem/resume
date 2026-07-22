@@ -156,7 +156,9 @@ export const eras: Era[] = [
           "Co-founder and sole engineer of receiptkit.io, a commercial SaaS product — “receipt " +
           "printing in 3 lines of code.” Design a receipt in a visual editor, then print to physical " +
           "thermal printers from any web or cloud app via a simple JSON API. I architected and built " +
-          "the entire solution.",
+          "the entire solution: a cloud web portal paired with a local “receipt bridge” — a Tauri " +
+          "desktop app or a dedicated Raspberry Pi device — that runs on the store's network and drives " +
+          "the printers.",
         bullets: [
           "The problem: browsers and cloud servers can't reach thermal printers, which speak proprietary binary protocols over raw TCP/USB on the local network — and Star's own cloud paths (CloudPRNT polling, MQTT) can't print image receipts fast enough. Built the missing edge “bridge” that caches templates, renders locally, and pushes print data straight to the printer over USB/Ethernet — ~40ms locally, ~97ms over the cloud.",
           "Designed a “pseudo-SVG” template format for speed: an SVG template plus dynamic JSON transforms to an SVG image, then to printer binary. Both hops are extremely fast — the quickest render path I found for image-based receipts, not just text.",
