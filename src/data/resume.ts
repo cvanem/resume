@@ -185,7 +185,7 @@ export const eras: Era[] = [
           "Full commerce stack: Stripe + PayPal checkout, subscriptions, dynamic tax, multi-warehouse ShipEngine/FedEx live rating, in-store pickup, returns with prepaid labels, and customer accounts with order history, tracking, and authentication.",
           "Faceted catalog search across 150,000+ SKUs with Algolia InstantSearch, surfacing live per-store inventory and pricing from MySQL.",
           "Built the analytics layer end to end — instrumented the full e-commerce funnel from add-to-cart through purchase and conversion across GA4, Google Ads, Bing UET, Facebook Pixel, and Algolia, with enhanced conversions and per-item category dimensions.",
-          "Operational monitoring and alerting on Axiom server logs — a standardized error-handling layer across 100+ API routes emails the team the instant a checkout, payment, or fulfillment error fires, with request-ID correlation for fast triage.",
+          "Operational monitoring and alerting on Axiom server logs — a standardized error-handling layer across the API routes emails the team the instant a checkout, payment, or fulfillment error fires, with request-ID correlation for fast triage.",
           "Selective LogRocket session replay on the checkout and order-confirmation screens, with client-side errors and analytics failures bridged back to server logs to diagnose browser-side incidents end to end.",
         ],
         tech: ["Next.js", "React 19", "TypeScript", "Algolia", "Stripe", "PayPal", "MySQL", "Vercel"],
