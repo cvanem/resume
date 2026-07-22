@@ -200,7 +200,7 @@ export const eras: Era[] = [
           "across two stores plus online.",
         bullets: [
           "The point-of-sale register — the highest-stakes screen in the business: a live cart driven by scan-to-add SKU input with fast item find, line-item discounts and price adjustments. Checkout via cash, credit-card, on-account invoice, gift-card, and split-tender payments, along with receipt integration, refunds, and return processing — all reconciled through Stripe and the owner's backend databases.",
-          "Designed the discount engine from scratch: cart- and line-level discounts across percent, fixed, and preset amounts, per-customer tier pricing (percent-off-retail or cost-plus margin), and SKU-targeted coupon codes with use limits, expiries, and product-level non-discountable flags.",
+          "Designed the discount engine from scratch: cart and line item discounts across percent, fixed, and preset amounts, per-customer tier pricing (percent-off-retail or cost-plus margin), and SKU-targeted coupon codes with use limits, expiries, and product-level non-discountable flags.",
           "Full refund workflows across credit card and cash, including partial returns and split tenders, with per-line-item tracking that caps refundable quantities and prevents over-refunding before anything reaches Stripe.",
           "In-person payments via Stripe Terminal, receipt printing over Star CloudPRNT plus a custom local print bridge, and real-time register/device messaging over AWS IoT MQTT.",
           "Accounts receivable, end to end: on-account invoicing, customer credits from returns and overpayments, automated monthly finance charges, an accounts-aging dashboard, and statements sent by email or physical mail — with AI-drafted collection emails.",
