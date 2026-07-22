@@ -195,9 +195,10 @@ export const eras: Era[] = [
         years: "2020 — Present", // TODO(chris): confirm start year
         title: "Family Hardware — POS & Business Management Platform",
         summary:
-          "Architected and built the internal operating system for the whole business: " +
-          "point of sale, accounts receivable, inventory, purchasing, fulfillment, and reporting " +
-          "across two stores plus online.",
+          "Architected and built the software that runs the whole business day to day — point of " +
+          "sale, accounts receivable, inventory, purchasing, fulfillment, and reporting across two " +
+          "stores plus online — unifying the owner's existing databases and a dozen third-party " +
+          "services behind one interface.",
         bullets: [
           "The point-of-sale register — the highest-stakes screen in the business: a live cart driven by scan-to-add SKU input with fast item find, line-item discounts and price adjustments. Checkout via cash, credit-card, on-account invoice, gift-card, and split-tender payments, along with receipt integration, refunds, and return processing — all reconciled through Stripe and the owner's backend databases.",
           "Designed the discount engine from scratch: cart and line item discounts across percent, fixed, and preset amounts, per-customer tier pricing (percent-off-retail or cost-plus margin), and SKU-targeted coupon codes with use limits, expiries, and product-level non-discountable flags.",
@@ -418,8 +419,10 @@ export const projects: Project[] = [
     years: "2020 — Present",
     kicker: "Real-world operations software",
     description:
-      "The internal operating system for the entire business: point of sale, inventory, " +
-      "purchasing, accounts receivable, fulfillment, and reporting across two stores plus online.",
+      "The custom software that runs the entire business day to day: point of sale, inventory, " +
+      "purchasing, accounts receivable, fulfillment, and reporting across two stores plus online — " +
+      "tying the owner's existing data together with a dozen third-party integrations behind a " +
+      "single interface.",
     highlights: [
       "The point-of-sale register — the highest-stakes screen in the business: a live cart driven by a scan-to-add SKU input, with fast item find.",
       "Cart engine handling line-item discounts, price adjustments, and return processing, with checkout flows for cash, credit-card, and on-account invoice tenders — all reconciled through Stripe and the owner's backend databases.",
