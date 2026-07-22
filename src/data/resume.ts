@@ -192,7 +192,7 @@ export const eras: Era[] = [
         years: "2020 — Present", // TODO(chris): confirm start year
         title: "Family Hardware — POS & Business Management Platform",
         summary:
-          "Designed, built, and maintain the internal operating system for the whole business: " +
+          "Architected and built the internal operating system for the whole business: " +
           "point of sale, accounts receivable, inventory, purchasing, fulfillment, and reporting " +
           "across two stores plus online.",
         bullets: [
