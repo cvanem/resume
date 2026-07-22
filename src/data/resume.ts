@@ -161,7 +161,8 @@ export const eras: Era[] = [
           "desktop app or a dedicated Raspberry Pi device — that runs on the store's network and drives " +
           "the printers.",
         bullets: [
-          "The problem: browsers and cloud servers can't reach thermal printers, which speak proprietary binary protocols over raw TCP/USB on the local network — and Star's own cloud paths (CloudPRNT polling, MQTT) can't print image receipts fast enough. Built the missing edge “bridge” that caches templates, renders locally, and pushes print data straight to the printer over USB/Ethernet — ~40ms locally, ~97ms over the cloud.",
+          "The problem: browsers and cloud servers can't reach thermal printers, which speak proprietary binary protocols over raw TCP/USB on the local network — and Star's own cloud paths (CloudPRNT polling, MQTT) can't print image receipts fast enough.",
+          "Built the missing edge “bridge” that caches templates, renders locally, and pushes print data straight to the printer over USB/Ethernet — ~40ms locally, ~97ms over the cloud.",
           "Designed a “pseudo-SVG” template format for speed: an SVG template plus dynamic JSON transforms to an SVG image, then to printer binary. Both hops are extremely fast — the quickest render path I found for image-based receipts, not just text.",
           "Cut render latency ~50x (600ms to 12ms) with a custom ttf-parser text-to-path pre-processor that eliminates the rasterizer's system-font resolution — verified byte-identical output before shipping.",
           "Real-time status, presence, and job dispatch over AWS IoT MQTT — chosen as a lightweight pub/sub transport that scales to large device fleets cost-effectively; per-org-scoped policies, plus deliberate offline-first failover to a LAN HTTP bridge so the register keeps printing when the internet drops.",
