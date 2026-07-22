@@ -227,7 +227,7 @@ export const eras: Era[] = [
           "Designed the DynamoDB data architecture behind the ratings: an append-only, versioned store where every rating is an immutable record — linked to its app by a groupId and to the revision it came from by a parent pointer — so one app accrues many ratings over time, each moving through a draft-then-approved workflow with the full history preserved. The public sees only the newest approved rating per app (resolved by grouping on groupId and taking the most recent approved record); raters and admins work against the whole chain.",
           "Built a virtualized app catalog that stays fast at scale — a windowed list (react-virtualized) with dynamic row measurement renders only the visible rows, so faceted filtering and fuzzy search across the full 600+ app catalog stay smooth and instant.",
           "Built an automated survey reminder system on AWS Lambda and SES: a scheduled job scans the survey tables, determines when each participant's next follow-up is due (Initial, then 2-week, then 6-week), and emails a deep-linked survey — idempotently, recording what's been sent so no one is emailed twice or after they've already responded.",
-          "Delivered it as an installable PWA with usage logged to a dedicated DynamoDB tracking table, giving the team real-world engagement analytics.",
+          "Implemented as an installable PWA with usage logged to a dedicated DynamoDB tracking table, giving the team real-world engagement analytics.",
           "Used by clinicians and patients worldwide to find safe, effective mental-health apps.",
         ],
         tech: ["React", "TypeScript", "DynamoDB", "AWS Lambda", "Web scraping"],
