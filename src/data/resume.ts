@@ -392,6 +392,20 @@ export const projects: Project[] = [
     ],
     tech: ["Next.js 16", "React 19", "TypeScript", "Rust", "Tauri 2", "AWS IoT MQTT", "Supabase", "Stripe", "Anthropic API", "Vercel"],
     links: [{ label: "receiptkit.io", href: "https://receiptkit.io" }],
+    images: [
+      {
+        src: "/screenshots/receiptkit/dashboard.webp",
+        alt: "Customer dashboard overview — bridges online, prints today with day-over-day trend, average print latency over the last 7 days, and a live print-jobs feed.",
+      },
+      {
+        src: "/screenshots/receiptkit/template-designer.webp",
+        alt: "Visual drag-and-drop template designer — data-bound receipt elements on an SVG canvas, rendered live against real order data.",
+      },
+      {
+        src: "/screenshots/receiptkit/template-print-preview.webp",
+        alt: "Template print preview — the designed receipt rendered as it prints on a physical Star Micronics thermal printer.",
+      },
+    ],
     metrics: [
       { value: "~50x", label: "faster render (600→12ms)" },
       { value: "<100ms", label: "cloud-to-print" },
