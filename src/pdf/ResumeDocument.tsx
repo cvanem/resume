@@ -6,7 +6,7 @@
  */
 import type { ReactNode } from "react";
 import { Document, Page, Text, View, Link, Svg, G, Path, Circle, StyleSheet } from "@react-pdf/renderer";
-import { profile, eras, education, training, skillGroups, type TimelineItem } from "@/data/resume";
+import { profile, eras, education, training, coreSkills, type TimelineItem } from "@/data/resume";
 
 const ACCENT = "#4c58c4";
 const LINK = "#1155cc"; // standard web-link blue for clickable values
@@ -182,6 +182,28 @@ const styles = StyleSheet.create({
   bulletText: {
     flex: 1,
     color: SECONDARY,
+  },
+  techRow: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 4,
+  },
+  techChip: {
+    fontSize: 7.5,
+    lineHeight: 1, // override the page's 1.4 so the pill hugs the text and stays centered
+    color: "#33366b", // deeper indigo than ACCENT for stronger contrast at small size
+    backgroundColor: "#eaecf9",
+    borderRadius: 3,
+    paddingVertical: 1.5,
+    paddingHorizontal: 5,
+    marginRight: 3,
+    marginBottom: 3,
+  },
+  itemLink: {
+    fontSize: 8,
+    color: LINK,
+    textDecoration: "none",
+    marginTop: 4,
   },
   skillsGrid: {
     flexDirection: "row",
@@ -374,6 +396,20 @@ function EraItem({ item }: { item: TimelineItem }) {
           <Text style={styles.bulletText}>{bullet}</Text>
         </View>
       ))}
+      {item.tech && item.tech.length > 0 ? (
+        <View style={styles.techRow}>
+          {item.tech.map((t) => (
+            <Text key={t} style={styles.techChip}>
+              {t}
+            </Text>
+          ))}
+        </View>
+      ) : null}
+      {item.link ? (
+        <Link src={item.link.href} style={styles.itemLink}>
+          {item.link.label}
+        </Link>
+      ) : null}
     </View>
   );
 }
@@ -447,11 +483,12 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
             })}
         </View>
 
-        {/* Skills — forced onto its own page (break before). */}
+        {/* Core Skills — condensed cross-cutting competencies (per-project stacks
+            are shown as chips above). Forced onto its own page (break before). */}
         <View style={styles.section} break>
-          <Text style={styles.sectionTitle}>Skills</Text>
+          <Text style={styles.sectionTitle}>Core Skills</Text>
           <View style={styles.skillsGrid}>
-            {skillGroups.map((group) => (
+            {coreSkills.map((group) => (
               <View key={group.label} style={styles.skillGroup} wrap={false}>
                 <Text style={styles.skillLabel}>{group.label}</Text>
                 <Text style={styles.skillList}>{group.skills.join(" · ")}</Text>

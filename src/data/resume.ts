@@ -580,15 +580,15 @@ export const projects: Project[] = [
 export const skillGroups: SkillGroup[] = [
   {
     label: "Frontend",
-    skills: ["React", "Next.js", "TypeScript", "Redux", "Material UI", "InstantSearch", "PWA / offline-first"],
+    skills: ["React", "Next.js", "TypeScript", "Redux", "Material UI", "InstantSearch", "PWA / offline-first", "Cordova"],
   },
   {
     label: "Backend & Data",
-    skills: ["Node.js", "Rust", "C# / .NET", "C / C++", "PostgreSQL / Supabase", "MySQL", "SQL Server", "REST APIs", "Serverless"],
+    skills: ["Node.js", "Rust", "C# / .NET", "C / C++", "PostgreSQL / Supabase", "MySQL", "SQL Server", "REST APIs", "Serverless", "Web scraping"],
   },
   {
     label: "Real-time & Systems",
-    skills: ["AWS IoT / MQTT", "WebSockets", "Offline-first / failover", "Tauri (desktop)", "Binary protocols", "Presence / LWT"],
+    skills: ["AWS IoT / MQTT", "SignalR", "WebSockets", "Offline-first / failover", "Tauri (desktop)", "Binary protocols", "Presence / LWT"],
   },
   {
     label: "AI Engineering",
@@ -596,15 +596,40 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     label: "Cloud & Infra",
-    skills: ["Vercel", "AWS (S3, IoT Core, DynamoDB, Cognito)", "Docker", "CI/CD", "Cron / background jobs", "Observability"],
+    skills: ["Vercel", "AWS (Lambda, S3, IoT Core, DynamoDB, Cognito)", "Docker", "CI/CD", "Cron / background jobs", "Observability"],
   },
   {
     label: "Commerce & Integrations",
-    skills: ["Stripe + Stripe Terminal", "PayPal", "Algolia", "ShipEngine / FedEx", "Twilio-class messaging", "Webhooks"],
+    skills: ["Stripe + Stripe Terminal", "PayPal", "Algolia", "PostGrid (mail)", "Twilio-class messaging", "Webhooks"],
   },
   {
     label: "Hardware & Low-level",
     skills: ["Embedded systems", "In-circuit emulation", "Receipt printers / scanners", "File-system internals", "Serial protocols", "Raspberry Pi"],
+  },
+];
+
+/**
+ * Condensed, cross-cutting competencies for the PDF's Skills section.
+ * The concrete per-project stacks are shown as chips under each project in the
+ * PDF, so this section highlights capabilities that span projects rather than
+ * repeating those tech names. (The website uses the fuller `skillGroups` above.)
+ */
+export const coreSkills: SkillGroup[] = [
+  {
+    label: "Engineering",
+    skills: ["Full-stack product development", "Real-time & offline-first architecture", "REST APIs, serverless & background jobs", "WebSockets / MQTT / SignalR", "Binary protocols & device integration"],
+  },
+  {
+    label: "AI Engineering",
+    skills: ["Anthropic API (Claude)", "Vision / multimodal", "SSE streaming", "AI-assisted development workflow"],
+  },
+  {
+    label: "Platform & Ops",
+    skills: ["Vercel, AWS & Docker", "CI/CD", "Observability & alerting", "Cron / scheduled jobs"],
+  },
+  {
+    label: "Systems & Hardware",
+    skills: ["Embedded systems", "In-circuit emulation & forensics", "File-system internals", "Receipt printers / scanners", "Serial protocols"],
   },
 ];
 
