@@ -194,11 +194,11 @@ const styles = StyleSheet.create({
     color: "#33366b", // deeper indigo than ACCENT for stronger contrast at small size
     backgroundColor: "#eaecf9",
     borderRadius: 3,
-    // Asymmetric vertical padding: react-pdf seats the glyph high in the line
-    // box, so we weight the top padding heavily to optically center it (same
-    // overall height as symmetric 1.5/1.5, just shifted down).
-    paddingTop: 2.5,
-    paddingBottom: 0.5,
+    // Asymmetric vertical padding: react-pdf seats the glyph high in the line box
+    // (the descent leaves empty space below it), so top padding ~1.5pt greater
+    // than bottom optically centers the text. Total = 3, same height as before.
+    paddingTop: 2.25,
+    paddingBottom: 0.75,
     paddingHorizontal: 5,
     marginRight: 3,
     marginBottom: 3,
