@@ -220,7 +220,7 @@ export const eras: Era[] = [
           "App-evaluation platform for the Division of Digital Psychiatry at Beth Israel " +
           "Deaconess Medical Center, a Harvard Medical School teaching hospital.",
         bullets: [
-          "Created and maintain the public React platform behind MIND.",
+          "Created and maintain the public React platform behind MIND — used by clinicians and patients worldwide to find safe, effective mental-health apps.",
           "600+ mental-health apps evaluated against 105 objective criteria from the American Psychiatric Association's evaluation framework.",
           "Built the data pipeline: scrapes app metadata from the Apple App Store and Google Play, merges it with human rater reviews, and runs it through an approval workflow that governs how ratings are published and kept current.",
           "Wrote serverless CORS proxies (AWS Lambda, plus a GCP twin) wrapping the Apple App Store and Google Play scrapers — normalizing and whitelisting fields and adding CORS headers so the browser app pulls live store metadata (icons, screenshots, install counts, in-app-purchase and pricing flags) directly, in multiple languages.",
@@ -228,7 +228,6 @@ export const eras: Era[] = [
           "Built a virtualized app catalog that stays fast at scale — a windowed list (react-virtualized) with dynamic row measurement renders only the visible rows, so faceted filtering and fuzzy search across the full 600+ app catalog stay smooth and instant.",
           "Built an automated survey reminder system on AWS Lambda and SES: a scheduled job scans the survey tables, determines when each participant's next follow-up is due (Initial, then 2-week, then 6-week), and emails a deep-linked survey — idempotently, recording what's been sent so no one is emailed twice or after they've already responded.",
           "Implemented as an installable PWA with usage logged to a dedicated DynamoDB tracking table, giving the team real-world engagement analytics.",
-          "Used by clinicians and patients worldwide to find safe, effective mental-health apps.",
         ],
         tech: ["React", "TypeScript", "DynamoDB", "AWS Lambda", "Web scraping"],
         link: { label: "mindapps.org", href: "https://mindapps.org" },
