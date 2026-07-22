@@ -6,7 +6,7 @@
  */
 import type { ReactNode } from "react";
 import { Document, Page, Text, View, Link, Svg, G, Path, Circle, StyleSheet } from "@react-pdf/renderer";
-import { profile, eras, education, training, skillGroups } from "@/data/resume";
+import { profile, eras, education, training, skillGroups, type TimelineItem } from "@/data/resume";
 
 const ACCENT = "#4c58c4";
 const LINK = "#1155cc"; // standard web-link blue for clickable values
@@ -359,6 +359,25 @@ function Contact() {
   );
 }
 
+/** A single project/role entry inside an era. Kept wrap={false} so a project never splits across pages. */
+function EraItem({ item }: { item: TimelineItem }) {
+  return (
+    <View style={styles.item} wrap={false}>
+      <View style={styles.itemTitleRow}>
+        <Text style={styles.itemTitle}>{item.title}</Text>
+        <Text style={styles.itemYears}>{item.years}</Text>
+      </View>
+      <Text style={styles.itemSummary}>{item.summary}</Text>
+      {item.bullets.map((bullet) => (
+        <View key={bullet} style={styles.bulletRow}>
+          <Text style={styles.bulletGlyph}>•</Text>
+          <Text style={styles.bulletText}>{bullet}</Text>
+        </View>
+      ))}
+    </View>
+  );
+}
+
 export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
   return (
     <Document
@@ -389,43 +408,47 @@ export function ResumeDocument({ generatedOn }: { generatedOn: string }) {
           <Text style={styles.sectionTitle}>Experience</Text>
           {eras
             .filter((era) => era.id !== "education")
-            .map((era) => (
-              <View key={era.id} style={styles.era}>
-                <View style={styles.eraHeader}>
-                  <Text style={styles.eraRole}>
-                    {era.role}
-                    {era.employmentType ? (
-                      <Text style={styles.eraType}> · {era.employmentType}</Text>
-                    ) : null}
-                  </Text>
-                  <Text style={styles.eraMeta}>{era.period}</Text>
-                </View>
-                <Text style={styles.eraOrg}>
-                  {era.org} · {era.location}
-                </Text>
-                <View style={styles.eraItems}>
-                  {era.items.map((item) => (
-                    <View key={item.id} style={styles.item} wrap={false}>
-                      <View style={styles.itemTitleRow}>
-                        <Text style={styles.itemTitle}>{item.title}</Text>
-                        <Text style={styles.itemYears}>{item.years}</Text>
+            .map((era) => {
+              const [firstItem, ...restItems] = era.items;
+              return (
+                <View key={era.id} style={styles.era}>
+                  {/* Keep the heading (and org line) glued to its first project via
+                      wrap={false}, so the heading can never land alone at the bottom
+                      of a page. Fully dynamic — it only breaks to the next page when
+                      the heading + first project don't fit in the remaining space. */}
+                  <View wrap={false}>
+                    <View style={styles.eraHeader}>
+                      <Text style={styles.eraRole}>
+                        {era.role}
+                        {era.employmentType ? (
+                          <Text style={styles.eraType}> · {era.employmentType}</Text>
+                        ) : null}
+                      </Text>
+                      <Text style={styles.eraMeta}>{era.period}</Text>
+                    </View>
+                    <Text style={styles.eraOrg}>
+                      {era.org} · {era.location}
+                    </Text>
+                    {firstItem ? (
+                      <View style={styles.eraItems}>
+                        <EraItem item={firstItem} />
                       </View>
-                      <Text style={styles.itemSummary}>{item.summary}</Text>
-                      {item.bullets.map((bullet) => (
-                        <View key={bullet} style={styles.bulletRow}>
-                          <Text style={styles.bulletGlyph}>•</Text>
-                          <Text style={styles.bulletText}>{bullet}</Text>
-                        </View>
+                    ) : null}
+                  </View>
+                  {restItems.length > 0 ? (
+                    <View style={styles.eraItems}>
+                      {restItems.map((item) => (
+                        <EraItem key={item.id} item={item} />
                       ))}
                     </View>
-                  ))}
+                  ) : null}
                 </View>
-              </View>
-            ))}
+              );
+            })}
         </View>
 
-        {/* Skills */}
-        <View style={styles.section}>
+        {/* Skills — forced onto its own page (break before). */}
+        <View style={styles.section} break>
           <Text style={styles.sectionTitle}>Skills</Text>
           <View style={styles.skillsGrid}>
             {skillGroups.map((group) => (
