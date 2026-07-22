@@ -296,7 +296,7 @@ export const eras: Era[] = [
           "Primary forensic investigator for slot-machine malfunction incidents worldwide — " +
           "the go-to engineer for the hardest cases.",
         bullets: [
-          "Performed 100+ forensic investigations, authoring the technical legal reports and expert opinions that documented the findings.",
+          "Performed 60+ forensic investigations, authoring the technical legal reports and expert opinions that documented the findings.",
           "Extracted and dumped RAM from physical gaming devices, then analyzed memory and source code to pinpoint bugs and points of failure.",
           "Reproduced reported malfunctions on live hardware, documenting each step of the analysis as it happened.",
           "Used in-circuit emulation and hardware debuggers to step through live source on physical devices, tracing code paths to hardware behavior.",
@@ -539,7 +539,7 @@ export const projects: Project[] = [
       "the engineer brought in for the hardest cases, where a bug can be worth millions and the " +
       "answer has to hold up in court.",
     highlights: [
-      "Performed 100+ forensic investigations, authoring the technical legal reports and expert opinions that documented the findings.",
+      "Performed 60+ forensic investigations, authoring the technical legal reports and expert opinions that documented the findings.",
       "Extracted and dumped RAM from live gaming devices, then analyzed memory alongside source code to identify bugs and points of error.",
       "Reproduced reported malfunctions on physical hardware, documenting the analysis step by step as the investigation unfolded.",
       "In-circuit emulation and hardware debuggers to step through source code executing on physical gaming devices, mapping functionality to hardware components.",
