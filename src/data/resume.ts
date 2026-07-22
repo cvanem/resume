@@ -192,10 +192,11 @@ export const eras: Era[] = [
         years: "2020 — Present", // TODO(chris): confirm start year
         title: "Family Hardware — POS & Business Management Platform",
         summary:
-          "The internal operating system for the whole business: point of sale, accounts " +
-          "receivable, inventory, purchasing, fulfillment, and reporting across two stores plus online.",
+          "Designed, built, and maintain the internal operating system for the whole business: " +
+          "point of sale, accounts receivable, inventory, purchasing, fulfillment, and reporting " +
+          "across two stores plus online.",
         bullets: [
-          "Built the point-of-sale register — the highest-stakes screen in the business: a live cart driven by a scan-to-add SKU input, with fast item find.",
+          "The point-of-sale register — the highest-stakes screen in the business: a live cart driven by a scan-to-add SKU input, with fast item find.",
           "Cart engine handling line-item discounts, price adjustments, and return processing, with checkout for cash, credit-card, and on-account invoice tenders — all reconciled through Stripe and the owner's backend databases.",
           "Designed the discount engine from scratch: stacking rules, item- and order-level promotions, and the edge cases that have to stay correct to the cent.",
           "Full refund workflows across credit card and cash, including partial returns and split tenders, with per-line-item tracking that caps refundable quantities and prevents over-refunding before anything reaches Stripe.",
