@@ -62,9 +62,6 @@ const styles = stylex.create({
     alignItems: "center",
     gap: 10,
   },
-  downloadWrap: {
-    display: { default: "none", "@media (min-width: 560px)": "block" },
-  },
 });
 
 const LINKS = [
@@ -90,9 +87,7 @@ export function Nav() {
         </nav>
         <div {...stylex.props(styles.actions)}>
           <ThemeToggle />
-          <div {...stylex.props(styles.downloadWrap)}>
-            <DownloadResumeButton compact />
-          </div>
+          <DownloadResumeButton compact responsiveLabel />
         </div>
       </div>
     </header>

@@ -33,19 +33,40 @@ const styles = stylex.create({
     paddingInline: 12,
     fontSize: 13,
   },
+  // When the label is collapsed on small screens the button is icon-only, so
+  // drop the icon↔text gap to keep it a tidy square.
+  iconOnly: {
+    gap: { default: 0, "@media (min-width: 560px)": 8 },
+  },
+  responsiveLabel: {
+    display: { default: "none", "@media (min-width: 560px)": "inline" },
+  },
 });
 
 /**
  * Links to /api/resume, which generates the PDF on demand — server-side,
  * from the same data (src/data/resume.ts) that renders this site.
+ *
+ * `responsiveLabel` collapses the text to an icon-only button below 560px —
+ * used in the fixed nav, where the full label won't fit on a phone.
  */
-export function DownloadResumeButton({ compact = false }: { compact?: boolean }) {
+export function DownloadResumeButton({
+  compact = false,
+  responsiveLabel = false,
+}: {
+  compact?: boolean;
+  responsiveLabel?: boolean;
+}) {
   return (
-    <a href="/api/resume" {...stylex.props(styles.button, compact && styles.compact)}>
+    <a
+      href="/api/resume"
+      aria-label="Download resume"
+      {...stylex.props(styles.button, compact && styles.compact, responsiveLabel && styles.iconOnly)}
+    >
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
         <path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
       </svg>
-      Download resume
+      <span {...(responsiveLabel ? stylex.props(styles.responsiveLabel) : {})}>Download resume</span>
     </a>
   );
 }
