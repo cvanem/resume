@@ -27,6 +27,9 @@
 # local reference material (old resume with street address — keep out of the public repo)
 /reference/
 
+# local job-application material — keep out of the public repo
+/applications/
+
 # claude code local settings
 .claude/settings.local.json
 
